@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Snail</string>
+    <!--crash-->
+    <string name="error_title">出错啦！</string>
+    <string name="error_occurred">Oops！程序发生了某些错误哦！Sorry！</string>
+    <string name="error_details">错误详情(给程序员看看吧)：</string>
+    <string name="unknown_exception">Unknown exception</string>
+    <string name="close_app">关闭应用</string>
+    <string name="restart_app">重启应用</string>
+    <string name="press_one_more_time_to_exit">再按一次返回键退出</string>
+
+    <!-- theme -->
+    <!-- Material Theme Elements -->
+    <string name="material_theme_red">Red</string>
+    <string name="material_theme_orange">Orange</string>
+    <string name="material_theme_lime">Lime</string>
+    <string name="material_theme_green">Green</string>
+    <string name="material_theme_teal">Teal</string>
+    <string name="material_theme_blue">Blue</string>
+    <string name="material_theme_purple">Purple</string>
+    <string name="material_theme_current_theme">Current Theme</string>
+    <string name="material_theme_green_theme">Green Theme</string>
+    <string name="material_theme_blue_theme">Blue Theme</string>
+
+    <!-- Set Theme Dialog -->
+    <string name="set_theme_dialog_title">设置主题颜色</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+
+
+    <!-- 权限申请-->
+    <string name="tips_permission_request_title">权限申请</string>
+    <string name="tips_permission_request_content">权限申请啊权限申请啊,权限申请啊权限申请啊,到底给不给!!!</string>
+    <string name="go_and_grant_permission">到设置页面授予权限</string>
+    <string name="deny_and_quit">残忍拒绝并退出</string>
+
+    <!-- tab name -->
+    <string name="tab1">tab1</string>
+    <string name="tab2">tab2</string>
+    <string name="tab3">tab3</string>
+    <string name="tab4">tab4</string>
+    <string name="tab5">tab5</string>
+
+
+
+
+</resources>
