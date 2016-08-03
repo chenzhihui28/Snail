@@ -40,6 +40,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
+
+
     /**
      * 视图初始化
      */

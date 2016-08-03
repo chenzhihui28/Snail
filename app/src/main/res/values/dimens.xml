@@ -22,5 +22,14 @@
 
     <!-- Selectable Items -->
     <dimen name="selectable_rounded_rect_corner_radius">3dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+
+
+    <!-- text sizes -->
+    <dimen name="textsize_xxlarge">22dp</dimen>
+    <dimen name="textsize_xlarge">20dp</dimen>
+    <dimen name="textsize_large">18sp</dimen>
+    <dimen name="textsize_second_large">16sp</dimen>
+    <dimen name="textsize_normal">14sp</dimen>
+    <dimen name="textsize_small">12sp</dimen>
+
 </resources>

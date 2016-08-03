@@ -1,8 +1,23 @@
+<!--
+  ~ Copyright 2015 Eduard Ereza Mart铆nez
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~
+  ~ You may obtain a copy of the License at
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:fitsSystemWindows="true"
               android:gravity="center_horizontal"
               android:orientation="vertical"
               android:paddingBottom="@dimen/activity_vertical_margin"
@@ -26,21 +41,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
-                android:src="@drawable/customactivityoncrash_error_image"/>
+                android:src="@drawable/customactivityoncrash_error_image" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/error_occurred"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/error_details"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
 
             <TextView
@@ -48,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="@string/unknown_exception"/>
+                android:text="@string/unknown_exception" />
 
 
         </LinearLayout>
@@ -64,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_weight="0"
-            android:text="@string/restart_app"/>
+            android:text="@string/restart_app" />
 
         <Button
             android:id="@+id/finish_button"
@@ -72,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_weight="0"
-            android:text="@string/close_app"/>
+            android:text="@string/close_app" />
     </LinearLayout>
 
 

@@ -1,5 +1,6 @@
 package com.czh.snail.utils;
 
+import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 
@@ -17,19 +18,19 @@ import java.util.List;
 public class MaterialTheme implements Serializable {
     // App themes
     public static final MaterialTheme THEME_RED =
-            new MaterialTheme(R.string.material_theme_red, R.style.AppTheme_Red);
+            new MaterialTheme(R.string.material_theme_red, R.style.AppTheme_Red, R.color.material_red_900);
     public static final MaterialTheme THEME_ORANGE =
-            new MaterialTheme(R.string.material_theme_orange, R.style.AppTheme_Orange);
+            new MaterialTheme(R.string.material_theme_orange, R.style.AppTheme_Orange, R.color.material_orange_900);
     public static final MaterialTheme THEME_YELLOW =
-            new MaterialTheme(R.string.material_theme_lime, R.style.AppTheme_Lime);
+            new MaterialTheme(R.string.material_theme_lime, R.style.AppTheme_Lime, R.color.material_lime_900);
     public static final MaterialTheme THEME_GREEN =
-            new MaterialTheme(R.string.material_theme_green, R.style.AppTheme_Green);
+            new MaterialTheme(R.string.material_theme_green, R.style.AppTheme_Green, R.color.material_green_900);
     public static final MaterialTheme THEME_TEAL =
-            new MaterialTheme(R.string.material_theme_teal, R.style.AppTheme_Teal);
+            new MaterialTheme(R.string.material_theme_teal, R.style.AppTheme_Teal, R.color.material_teal_900);
     public static final MaterialTheme THEME_BLUE =
-            new MaterialTheme(R.string.material_theme_blue, R.style.AppTheme_Blue);
+            new MaterialTheme(R.string.material_theme_blue, R.style.AppTheme_Blue, R.color.material_blue_900);
     public static final MaterialTheme THEME_PURPLE =
-            new MaterialTheme(R.string.material_theme_purple, R.style.AppTheme_Purple);
+            new MaterialTheme(R.string.material_theme_purple, R.style.AppTheme_Purple, R.color.material_purple_900);
 
     // Dialog themes
     public static final MaterialTheme THEME_DIALOG_RED =
@@ -71,10 +72,17 @@ public class MaterialTheme implements Serializable {
     private int nameResId;
     @StyleRes
     private int themeResId;
+    @ColorRes
+    private int colorResId;
 
     public MaterialTheme(@StringRes int nameResId, @StyleRes int themeResId) {
         this.nameResId = nameResId;
         this.themeResId = themeResId;
+    }
+    public MaterialTheme(@StringRes int nameResId, @StyleRes int themeResId, @ColorRes int colorResId) {
+        this.nameResId = nameResId;
+        this.themeResId = themeResId;
+        this.colorResId = colorResId;
     }
 
     public static List<MaterialTheme> getThemeList() {
@@ -125,6 +133,10 @@ public class MaterialTheme implements Serializable {
 
     public int getThemeResId() {
         return themeResId;
+    }
+
+    public int getColorResId() {
+        return colorResId;
     }
 
     @Override

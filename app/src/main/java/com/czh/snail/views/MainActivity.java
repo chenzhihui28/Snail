@@ -1,6 +1,5 @@
 package com.czh.snail.views;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -9,21 +8,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.czh.snail.R;
 import com.czh.snail.adapters.DemoViewPagerAdapter;
 import com.czh.snail.databinding.ActivityMainBinding;
-import com.czh.snail.utils.DialogUtils;
 import com.czh.snail.utils.MaterialTheme;
-import com.czh.snail.utils.SingData;
+
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 
@@ -34,6 +29,7 @@ public class MainActivity extends BaseActivity {
      * ,先打开MainActivity清除栈顶Activity然后再将自身finish达到退出程序的目的
      */
     public static final String FINISHAPP = "finishapp";
+    public static final String FINISHMAINACTIVITY = "finishmainactivity";
     private ActivityMainBinding mBinding;
     private DemoFragment currentFragment;
     private DemoViewPagerAdapter adapter;
@@ -44,9 +40,9 @@ public class MainActivity extends BaseActivity {
     }
 
     //用于先跳转到MainActivity清除栈然后finish达到退出程序的目的
-    public static Intent newIntent(Activity activity, boolean isFinishApp) {
+    public static Intent newIntent(Activity activity, boolean finishApp) {
         Intent intent = new Intent(activity, MainActivity.class);
-        intent.putExtra(FINISHAPP, isFinishApp);
+        intent.putExtra(FINISHAPP, finishApp);
         return intent;
     }
 
@@ -69,6 +65,8 @@ public class MainActivity extends BaseActivity {
             finish();
         }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+
 
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab1, R.drawable.ic_maps_local_attraction, R.color.color_tab_1);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab2, R.drawable.ic_maps_local_bar, R.color.color_tab_2);
@@ -111,83 +109,21 @@ public class MainActivity extends BaseActivity {
                 mBinding.viewPager.setCurrentItem(position, false);
                 currentFragment.willBeDisplayed();
 
-                if (position == 1) {
-                    mBinding.bottomNavigation.setNotification("", 1);
-                    mBinding.floatingActionButton.setVisibility(View.VISIBLE);
-                    mBinding.floatingActionButton.setAlpha(0f);
-                    mBinding.floatingActionButton.setScaleX(0f);
-                    mBinding.floatingActionButton.setScaleY(0f);
-                    mBinding.floatingActionButton.animate()
-                            .alpha(1)
-                            .scaleX(1)
-                            .scaleY(1)
-                            .setDuration(300)
-                            .setInterpolator(new OvershootInterpolator())
-                            .setListener(new Animator.AnimatorListener() {
-                                @Override
-                                public void onAnimationStart(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    mBinding.floatingActionButton.animate()
-                                            .setInterpolator(new LinearOutSlowInInterpolator())
-                                            .start();
-                                }
-
-                                @Override
-                                public void onAnimationCancel(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationRepeat(Animator animation) {
-
-                                }
-                            })
-                            .start();
-
-                } else {
-                    if (mBinding.floatingActionButton.getVisibility() == View.VISIBLE) {
-                        mBinding.floatingActionButton.animate()
-                                .alpha(0)
-                                .scaleX(0)
-                                .scaleY(0)
-                                .setDuration(300)
-                                .setInterpolator(new LinearOutSlowInInterpolator())
-                                .setListener(new Animator.AnimatorListener() {
-                                    @Override
-                                    public void onAnimationStart(Animator animation) {
-
-                                    }
-
-                                    @Override
-                                    public void onAnimationEnd(Animator animation) {
-                                        mBinding.floatingActionButton.setVisibility(View.GONE);
-                                    }
-
-                                    @Override
-                                    public void onAnimationCancel(Animator animation) {
-                                        mBinding.floatingActionButton.setVisibility(View.GONE);
-                                    }
-
-                                    @Override
-                                    public void onAnimationRepeat(Animator animation) {
-
-                                    }
-                                })
-                                .start();
-                    }
-                }
-
                 return true;
             }
         });
 
+
+
+
+
+
+
+
+
         mBinding.bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
             @Override public void onPositionChange(int y) {
-                Log.d("DemoActivity", "BottomNavigation Position: " + y);
+//                Log.d("DemoActivity", "BottomNavigation Position: " + y);
             }
         });
 
@@ -210,8 +146,7 @@ public class MainActivity extends BaseActivity {
         mBinding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialogFragment = SetThemeDialogFragment.newInstance(SingData.getInstance().getCurrentTheme());
-                DialogUtils.showDialogFragment(getSupportFragmentManager(), dialogFragment);
+                startActivity(SetThemeActivity.newIntent(MainActivity.this));
             }
         });
 
@@ -271,8 +206,19 @@ public class MainActivity extends BaseActivity {
     public int getBottomNavigationNbItems() {
         return mBinding.bottomNavigation.getItemsCount();
     }
-    
-    
 
+    @Override
+    protected boolean isUseEventBus() {
+        return true;
+    }
 
+    @Subscriber(tag = FINISHMAINACTIVITY)
+    private void finishmainactivity(String msg){
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
