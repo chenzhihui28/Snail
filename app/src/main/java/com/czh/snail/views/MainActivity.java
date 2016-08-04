@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -17,10 +15,15 @@ import com.czh.snail.R;
 import com.czh.snail.adapters.DemoViewPagerAdapter;
 import com.czh.snail.databinding.ActivityMainBinding;
 import com.czh.snail.utils.MaterialTheme;
+import com.czh.snail.utils.SingData;
 
 import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity {
 
@@ -29,11 +32,12 @@ public class MainActivity extends BaseActivity {
      * ,先打开MainActivity清除栈顶Activity然后再将自身finish达到退出程序的目的
      */
     public static final String FINISHAPP = "finishapp";
-    public static final String FINISHMAINACTIVITY = "finishmainactivity";
+    public static final String FINISHMAINACTIVITY = "finishmainactivity";//用于切换主题时为了重新创建MainActivity
     private ActivityMainBinding mBinding;
     private DemoFragment currentFragment;
     private DemoViewPagerAdapter adapter;
     private ArrayList<AHBottomNavigationItem> bottomNavigationItems = new ArrayList<>();
+    private boolean backPressTwice = false;//用于点击两次返回键退出程序
 
     public static Intent newIntent(Activity activity) {
         return new Intent(activity, MainActivity.class);
@@ -47,7 +51,7 @@ public class MainActivity extends BaseActivity {
     }
 
     //用于切换主题颜色
-    public static Intent newIntent(Activity activity, MaterialTheme materialTheme){
+    public static Intent newIntent(Activity activity, MaterialTheme materialTheme) {
         Intent intent = new Intent(activity, MainActivity.class);
         intent.putExtra(BaseActivity.KEY_ARG_CURRENT_THEME, materialTheme);
         return intent;
@@ -61,12 +65,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        if(getIntent().getBooleanExtra(FINISHAPP,false)){
+        if (getIntent().getBooleanExtra(FINISHAPP, false)) {
             finish();
         }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-
 
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab1, R.drawable.ic_maps_local_attraction, R.color.color_tab_1);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab2, R.drawable.ic_maps_local_bar, R.color.color_tab_2);
@@ -76,22 +78,23 @@ public class MainActivity extends BaseActivity {
         bottomNavigationItems.add(item2);
         bottomNavigationItems.add(item3);
         mBinding.bottomNavigation.addItems(bottomNavigationItems);
+        mBinding.bottomNavigation.setColored(false);
 
-        int backgroundColor = getResources().getColor(R.color.colorPrimary);
+        //设置底部icon的底色
+        int backgroundColor;
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                TypedArray array = getTheme().obtainStyledAttributes(new int[]{
-                        android.R.attr.colorPrimary
-                });
-                backgroundColor = array.getColor(0, getResources().getColor(R.color.colorPrimary));
-                array.recycle();
-            }
+            TypedArray array = getTheme().obtainStyledAttributes(new int[]{
+                    android.R.attr.colorPrimary
+            });
+            backgroundColor = array.getColor(0, ContextCompat.getColor(this, SingData.getInstance().getCurrentTheme().getColorResId()));
+            array.recycle();
         } catch (Exception e) {
+            backgroundColor = ContextCompat.getColor(this, SingData.getInstance().getCurrentTheme().getColorResId());
             e.printStackTrace();
         }
 
         mBinding.bottomNavigation.setAccentColor(backgroundColor);
-        mBinding.bottomNavigation.setInactiveColor(getResources().getColor(R.color.material_gray_400));
+        mBinding.bottomNavigation.setInactiveColor(ContextCompat.getColor(this, R.color.material_gray_400));
 
         mBinding.bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
@@ -114,34 +117,12 @@ public class MainActivity extends BaseActivity {
         });
 
 
-
-
-
-
-
-
-
-        mBinding.bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
-            @Override public void onPositionChange(int y) {
-//                Log.d("DemoActivity", "BottomNavigation Position: " + y);
-            }
-        });
-
         mBinding.viewPager.setOffscreenPageLimit(4);
         adapter = new DemoViewPagerAdapter(getSupportFragmentManager());
         mBinding.viewPager.setAdapter(adapter);
 
         currentFragment = adapter.getCurrentFragment();
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mBinding.bottomNavigation.setNotification("16", 1);
-                Snackbar.make(mBinding.bottomNavigation, "Snackbar with bottom navigation",
-                        Snackbar.LENGTH_SHORT).show();
-            }
-        }, 3000);
 
         mBinding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,73 +133,35 @@ public class MainActivity extends BaseActivity {
 
     }
 
-
-    /**
-     * Update the bottom navigation colored param
-     */
-    public void updateBottomNavigationColor(boolean isColored) {
-        mBinding.bottomNavigation.setColored(isColored);
-    }
-
-    /**
-     * Return if the bottom navigation is colored
-     */
-    public boolean isBottomNavigationColored() {
-        return mBinding.bottomNavigation.isColored();
-    }
-
-    /**
-     * Add or remove items of the bottom navigation
-     */
-    public void updateBottomNavigationItems(boolean addItems) {
-
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem(getString(R.string.tab4),
-                ContextCompat.getDrawable(this, R.drawable.ic_maps_local_bar),
-                ContextCompat.getColor(this, R.color.color_tab_4));
-        AHBottomNavigationItem item5 = new AHBottomNavigationItem(getString(R.string.tab5),
-                ContextCompat.getDrawable(this, R.drawable.ic_maps_place),
-                ContextCompat.getColor(this, R.color.color_tab_5));
-
-        if (addItems) {
-            mBinding.bottomNavigation.addItem(item4);
-            mBinding.bottomNavigation.addItem(item5);
-            mBinding.bottomNavigation.setNotification("100+", 3);
-        } else {
-            mBinding.bottomNavigation.removeAllItems();
-            mBinding.bottomNavigation.addItems(bottomNavigationItems);
-        }
-    }
-
-    /**
-     * Show or hide the bottom navigation with animation
-     */
-    public void showOrHideBottomNavigation(boolean show) {
-        if (show) {
-            mBinding.bottomNavigation.restoreBottomNavigation(true);
-        } else {
-            mBinding.bottomNavigation.hideBottomNavigation(true);
-        }
-    }
-
-    /**
-     * Return the number of items in the bottom navigation
-     */
-    public int getBottomNavigationNbItems() {
-        return mBinding.bottomNavigation.getItemsCount();
-    }
-
     @Override
     protected boolean isUseEventBus() {
         return true;
     }
 
     @Subscriber(tag = FINISHMAINACTIVITY)
-    private void finishmainactivity(String msg){
+    private void finishmainactivity(String msg) {
         finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backPressTwice) {
+            finish();
+        } else {
+            backPressTwice = true;
+            Snackbar.make(mBinding.bottomNavigation, R.string.click_one_more_time_to_exit, 2000).show();
+            Observable.timer(2, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
+                @Override
+                public void call(Long aLong) {
+                    backPressTwice = false;
+                }
+            });
+        }
+
     }
 }

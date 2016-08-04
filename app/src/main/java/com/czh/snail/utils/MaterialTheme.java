@@ -16,21 +16,24 @@ import java.util.List;
  * @author Steven Byle
  */
 public class MaterialTheme implements Serializable {
+
+    private static final long serialVersionUID = 2L;
+
     // App themes
     public static final MaterialTheme THEME_RED =
-            new MaterialTheme(R.string.material_theme_red, R.style.AppTheme_Red, R.color.material_red_900);
+            new MaterialTheme(R.string.material_theme_red, R.style.AppTheme_Red, R.color.material_red_500);
     public static final MaterialTheme THEME_ORANGE =
-            new MaterialTheme(R.string.material_theme_orange, R.style.AppTheme_Orange, R.color.material_orange_900);
+            new MaterialTheme(R.string.material_theme_orange, R.style.AppTheme_Orange, R.color.material_orange_500);
     public static final MaterialTheme THEME_YELLOW =
-            new MaterialTheme(R.string.material_theme_lime, R.style.AppTheme_Lime, R.color.material_lime_900);
+            new MaterialTheme(R.string.material_theme_lime, R.style.AppTheme_Lime, R.color.material_lime_500);
     public static final MaterialTheme THEME_GREEN =
-            new MaterialTheme(R.string.material_theme_green, R.style.AppTheme_Green, R.color.material_green_900);
+            new MaterialTheme(R.string.material_theme_green, R.style.AppTheme_Green, R.color.material_green_500);
     public static final MaterialTheme THEME_TEAL =
-            new MaterialTheme(R.string.material_theme_teal, R.style.AppTheme_Teal, R.color.material_teal_900);
+            new MaterialTheme(R.string.material_theme_teal, R.style.AppTheme_Teal, R.color.material_teal_500);
     public static final MaterialTheme THEME_BLUE =
-            new MaterialTheme(R.string.material_theme_blue, R.style.AppTheme_Blue, R.color.material_blue_900);
+            new MaterialTheme(R.string.material_theme_blue, R.style.AppTheme_Blue, R.color.material_blue_500);
     public static final MaterialTheme THEME_PURPLE =
-            new MaterialTheme(R.string.material_theme_purple, R.style.AppTheme_Purple, R.color.material_purple_900);
+            new MaterialTheme(R.string.material_theme_purple, R.style.AppTheme_Purple, R.color.material_purple_500);
 
     // Dialog themes
     public static final MaterialTheme THEME_DIALOG_RED =
@@ -161,5 +164,15 @@ public class MaterialTheme implements Serializable {
         int result = nameResId;
         result = 31 * result + themeResId;
         return result;
+    }
+
+
+    @Override
+    public String toString() {
+        return "MaterialTheme{" +
+                "nameResId=" + nameResId +
+                ", themeResId=" + themeResId +
+                ", colorResId=" + colorResId +
+                '}';
     }
 }

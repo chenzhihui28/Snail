@@ -21,6 +21,7 @@
     <string name="material_theme_current_theme">Current Theme</string>
     <string name="material_theme_green_theme">Green Theme</string>
     <string name="material_theme_blue_theme">Blue Theme</string>
+    <string name="this_is_your_current_theme">this is your current theme</string>
 
     <!-- Set Theme Dialog -->
     <string name="set_theme_dialog_title">设置主题颜色</string>
@@ -40,6 +41,8 @@
     <string name="tab3">tab3</string>
     <string name="tab4">tab4</string>
     <string name="tab5">tab5</string>
+
+    <string name="click_one_more_time_to_exit">再次点击返回键退出程序</string>
 
 
 </resources>

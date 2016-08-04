@@ -8,12 +8,12 @@ import com.czh.snail.R;
 import com.czh.snail.base.BaseRecyclerAdapter;
 import com.czh.snail.base.BaseRecyclerHolder;
 import com.czh.snail.utils.MaterialTheme;
+import com.czh.snail.utils.SingData;
 
 /**
  * 主题选择页面的adapter
  */
 public class ThemeListAdapter extends BaseRecyclerAdapter<MaterialTheme> {
-
     /**
      * @param context      context
      * @param itemLayoutId 布局的layout的Id
@@ -31,7 +31,12 @@ public class ThemeListAdapter extends BaseRecyclerAdapter<MaterialTheme> {
     public void convert(BaseRecyclerHolder helper, MaterialTheme item, int position) {
         TextView mTextView =  helper.getView(R.id.tvThemeText);
         RelativeLayout mRelativeLayout = helper.getView(R.id.rlRoot);
-        mTextView.setText(MaterialTheme.getThemeList().get(position).getNameResId());
+        StringBuilder stringBuilder = new StringBuilder();
+        if (MaterialTheme.getThemeList().get(position).getThemeResId() == SingData.getInstance().getCurrentTheme().getThemeResId()) {
+            stringBuilder.append("Current:");
+        }
+        stringBuilder.append(mContext.getString(MaterialTheme.getThemeList().get(position).getNameResId()));
+        mTextView.setText(stringBuilder.toString());
         mRelativeLayout.setBackgroundResource(MaterialTheme.getThemeList().get(position).getColorResId());
     }
 

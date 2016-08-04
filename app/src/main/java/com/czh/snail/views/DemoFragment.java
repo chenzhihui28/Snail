@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
 import com.czh.snail.R;
@@ -63,27 +62,27 @@ public class DemoFragment extends Fragment {
         final SwitchCompat switchFiveItems = (SwitchCompat) view.findViewById(R.id.fragment_demo_switch_five_items);
         final SwitchCompat showHideBottomNavigation = (SwitchCompat) view.findViewById(R.id.fragment_demo_show_hide);
 
-        switchColored.setChecked(demoActivity.isBottomNavigationColored());
-        switchFiveItems.setChecked(demoActivity.getBottomNavigationNbItems() == 5);
-
-        switchColored.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                demoActivity.updateBottomNavigationColor(isChecked);
-            }
-        });
-        switchFiveItems.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                demoActivity.updateBottomNavigationItems(isChecked);
-            }
-        });
-        showHideBottomNavigation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                demoActivity.showOrHideBottomNavigation(isChecked);
-            }
-        });
+//        switchColored.setChecked(demoActivity.isBottomNavigationColored());
+//        switchFiveItems.setChecked(demoActivity.getBottomNavigationNbItems() == 5);
+//
+//        switchColored.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                demoActivity.updateBottomNavigationColor(isChecked);
+//            }
+//        });
+//        switchFiveItems.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                demoActivity.updateBottomNavigationItems(isChecked);
+//            }
+//        });
+//        showHideBottomNavigation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                demoActivity.showOrHideBottomNavigation(isChecked);
+//            }
+//        });
     }
 
     /**

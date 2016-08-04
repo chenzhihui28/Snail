@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -16,6 +17,11 @@ import com.czh.snail.utils.SingData;
 
 import org.simple.eventbus.EventBus;
 
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.functions.Action1;
+
 public class SetThemeActivity extends BaseActivity {
 
     private ActivitySetThemeBinding mBinding;
@@ -25,7 +31,6 @@ public class SetThemeActivity extends BaseActivity {
     public static Intent newIntent(Activity activity){
         return new Intent(activity, SetThemeActivity.class);
     }
-
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -39,13 +44,20 @@ public class SetThemeActivity extends BaseActivity {
         mThemeListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onClick(View v, int position) {
-                EventBus.getDefault().post(getClass().getSimpleName(), MainActivity.FINISHMAINACTIVITY);
-                MaterialTheme newTheme = MaterialTheme.getThemeList().get(position);
+                final MaterialTheme newTheme = MaterialTheme.getThemeList().get(position);
                 if (!SingData.getInstance().getCurrentTheme().equals(newTheme)) {
-                    Intent intent = MainActivity.newIntent(SetThemeActivity.this, newTheme);
-                    //new task是因为切换主题必须要activity重新创建,所以要先将当前的mainactivity实例结束,然后new task重新创建一个
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    EventBus.getDefault().post(getClass().getSimpleName(), MainActivity.FINISHMAINACTIVITY);
+                    Observable.timer(100, TimeUnit.MILLISECONDS).subscribe(new Action1<Long>() {
+                        @Override
+                        public void call(Long aLong) {
+                            Intent intent = MainActivity.newIntent(SetThemeActivity.this, newTheme);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                }else {
+                    Snackbar.make(mBinding.recyclerView, R.string.this_is_your_current_theme,
+                            Snackbar.LENGTH_SHORT).show();
                 }
             }
         });

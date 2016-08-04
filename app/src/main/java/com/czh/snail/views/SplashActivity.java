@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.czh.snail.R;
+import com.czh.snail.utils.Constants;
 import com.czh.snail.utils.PermissionsChecker;
 import com.czh.snail.utils.SharepreferenceUtils;
 
@@ -42,19 +43,19 @@ public class SplashActivity extends BaseActivity {
         PermissionsChecker mChecker = new PermissionsChecker(this);
         if (mChecker.lacksPermissions(PERMISSIONS)) {
             PermissionsActivity.startActivityForResult(this, REQUEST_CODE, PERMISSIONS);
-        }else {
+        } else {
             startSubscription();
         }
     }
-
 
 
     public Subscription startSubscription() {
         return mSubscription = timerObservable.subscribe(new Action1() {
             @Override
             public void call(Object o) {
-                if (SharepreferenceUtils.isFirstStartApp()) {
-                    SharepreferenceUtils.setIsFirestStart(false);
+                if (SharepreferenceUtils.getBoolean(Constants.SharePreferenceAttr.FIRSTSTARTAFTERINSTALL, true)) {
+                    SharepreferenceUtils.saveBoolean(Constants.SharePreferenceAttr.FIRSTSTARTAFTERINSTALL, false);
+                    //TODO 首次运行要跳转引导页
 //                    startActivity(GuideActivity.newIntent(SplashActivity.this));
                     startActivity(MainActivity.newIntent(SplashActivity.this));
                 } else {
@@ -66,14 +67,13 @@ public class SplashActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(PermissionsActivity.PERMISSIONS_DENIED == resultCode){
+        if (PermissionsActivity.PERMISSIONS_DENIED == resultCode) {
             //权限未被授予，退出应用
             finish();
-        }else if(PermissionsActivity.PERMISSIONS_GRANTED == resultCode){
+        } else if (PermissionsActivity.PERMISSIONS_GRANTED == resultCode) {
             //权限被授予，继续
             startSubscription();
         }

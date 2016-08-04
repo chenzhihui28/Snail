@@ -1,11 +1,11 @@
 package com.czh.snail.utils;
 
-import android.support.design.BuildConfig;
 import android.util.Log;
+import com.czh.snail.BuildConfig;
 
 public class L {
     public static boolean isDebug = BuildConfig.DEBUG;// 是否需要打印bug，可以在application的onCreate函数里面初始化
-    private static final String TAG = "way";
+    private static final String TAG = "Snail Log";
 
     public static void i(String msg) {
         if (isDebug)
