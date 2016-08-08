@@ -1,9 +1,8 @@
-package com.czh.snail.views;
+package com.czh.snail.views.main;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -13,9 +12,12 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.czh.snail.R;
 import com.czh.snail.adapters.DemoViewPagerAdapter;
+import com.czh.snail.base.BaseActivity;
 import com.czh.snail.databinding.ActivityMainBinding;
+import com.czh.snail.model.SingData;
 import com.czh.snail.utils.MaterialTheme;
-import com.czh.snail.utils.SingData;
+import com.czh.snail.views.DemoFragment;
+import com.czh.snail.views.SetThemeActivity;
 
 import org.simple.eventbus.Subscriber;
 
@@ -25,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.functions.Action1;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresenter> {
 
     /**
      * 由于MainActivity的launchMode是SingleTask,所以想要退出程序
@@ -33,7 +35,6 @@ public class MainActivity extends BaseActivity {
      */
     public static final String FINISHAPP = "finishapp";
     public static final String FINISHMAINACTIVITY = "finishmainactivity";//用于切换主题时为了重新创建MainActivity
-    private ActivityMainBinding mBinding;
     private DemoFragment currentFragment;
     private DemoViewPagerAdapter adapter;
     private ArrayList<AHBottomNavigationItem> bottomNavigationItems = new ArrayList<>();
@@ -64,11 +65,17 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected int getContentViewLayoutID() {
+        return R.layout.activity_main;
+    }
+
+
+
+    @Override
+    protected void initView(Bundle savedInstanceState, ActivityMainBinding binding) {
         if (getIntent().getBooleanExtra(FINISHAPP, false)) {
             finish();
         }
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab1, R.drawable.ic_maps_local_attraction, R.color.color_tab_1);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab2, R.drawable.ic_maps_local_bar, R.color.color_tab_2);
@@ -138,15 +145,18 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
+
+
+    @Override
+    protected MainPresenter setPresenter() {
+        return null;
+    }
+
     @Subscriber(tag = FINISHMAINACTIVITY)
     private void finishmainactivity(String msg) {
         finish();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void onBackPressed() {

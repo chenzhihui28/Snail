@@ -2,7 +2,6 @@ package com.czh.snail.views;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,10 +9,13 @@ import android.view.View;
 
 import com.czh.snail.R;
 import com.czh.snail.adapters.ThemeListAdapter;
+import com.czh.snail.base.BaseActivity;
+import com.czh.snail.base.BasePresenter;
 import com.czh.snail.base.BaseRecyclerAdapter;
 import com.czh.snail.databinding.ActivitySetThemeBinding;
+import com.czh.snail.model.SingData;
 import com.czh.snail.utils.MaterialTheme;
-import com.czh.snail.utils.SingData;
+import com.czh.snail.views.main.MainActivity;
 
 import org.simple.eventbus.EventBus;
 
@@ -22,9 +24,7 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.functions.Action1;
 
-public class SetThemeActivity extends BaseActivity {
-
-    private ActivitySetThemeBinding mBinding;
+public class SetThemeActivity extends BaseActivity<ActivitySetThemeBinding,BasePresenter> {
     private LinearLayoutManager mLinearLayoutManager;
     private ThemeListAdapter mThemeListAdapter;
 
@@ -33,8 +33,12 @@ public class SetThemeActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_set_theme);
+    protected int getContentViewLayoutID() {
+        return R.layout.activity_set_theme;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState, ActivitySetThemeBinding binding) {
         mBinding.recyclerView.setHasFixedSize(true);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
@@ -61,5 +65,11 @@ public class SetThemeActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+
+    @Override
+    protected BasePresenter setPresenter() {
+        return null;
     }
 }

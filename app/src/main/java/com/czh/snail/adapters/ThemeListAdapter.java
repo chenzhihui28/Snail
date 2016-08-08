@@ -8,7 +8,7 @@ import com.czh.snail.R;
 import com.czh.snail.base.BaseRecyclerAdapter;
 import com.czh.snail.base.BaseRecyclerHolder;
 import com.czh.snail.utils.MaterialTheme;
-import com.czh.snail.utils.SingData;
+import com.czh.snail.model.SingData;
 
 /**
  * 主题选择页面的adapter

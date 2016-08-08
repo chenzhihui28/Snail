@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.czh.snail.R;
+import com.czh.snail.views.main.MainActivity;
+import com.czh.snail.views.splash.SplashActivity;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 

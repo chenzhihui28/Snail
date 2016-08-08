@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 
 import com.czh.snail.R;
 import com.czh.snail.adapters.DemoAdapter;
+import com.czh.snail.views.main.MainActivity;
 
 import java.util.ArrayList;
 

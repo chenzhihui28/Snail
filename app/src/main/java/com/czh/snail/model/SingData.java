@@ -1,7 +1,10 @@
-package com.czh.snail.utils;
+package com.czh.snail.model;
 
 import android.text.TextUtils;
 
+import com.czh.snail.utils.Constants;
+import com.czh.snail.utils.MaterialTheme;
+import com.czh.snail.utils.SharepreferenceUtils;
 import com.google.gson.Gson;
 
 /**

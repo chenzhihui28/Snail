@@ -2,9 +2,12 @@ package com.czh.snail.views;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 
 import com.czh.snail.R;
+import com.czh.snail.base.BaseActivity;
+import com.czh.snail.base.BasePresenter;
 
 
 /**
@@ -23,9 +26,20 @@ public class GuideActivity extends BaseActivity {
         return true;
     }
 
+
     @Override
-    protected void initView(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_guide);
+    protected BasePresenter setPresenter() {
+        return null;
+    }
+
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.activity_guide;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState, ViewDataBinding binding) {
+
     }
 
 }
