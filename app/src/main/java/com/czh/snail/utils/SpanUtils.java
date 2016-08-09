@@ -21,6 +21,7 @@ public final class SpanUtils {
      * @param pattern
      * @param styles
      * @return
+     *
      */
     public static CharSequence createSpannable(CharSequence source,
                                                Pattern pattern, CharacterStyle... styles) {
