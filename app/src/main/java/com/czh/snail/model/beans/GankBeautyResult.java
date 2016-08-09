@@ -1,5 +1,3 @@
-// (c)2016 Flipboard Inc, All Rights Reserved.
-
 package com.czh.snail.model.beans;
 
 import com.google.gson.annotations.SerializedName;

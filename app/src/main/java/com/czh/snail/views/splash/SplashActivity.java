@@ -18,6 +18,11 @@ import com.czh.snail.views.main.MainActivity;
  */
 public class SplashActivity extends BaseActivity<ActivitySplashBinding,SplashPresenter> implements SplashContract.View{
 
+    @Override
+    protected boolean setOtherTheme() {
+        setTheme(R.style.FullScreenTheme);
+        return true;
+    }
 
     @Override
     protected int getContentViewLayoutID() {
