@@ -42,7 +42,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, E extends BasePres
             setContentView(getContentViewLayoutID());
             mPresenter = setPresenter();
             mBinding = DataBindingUtil.setContentView(this, getContentViewLayoutID());
-            initView(savedInstanceState,mBinding);
+            initView(savedInstanceState);
             if (mPresenter != null) {
                 mPresenter.start();
             }
@@ -60,7 +60,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, E extends BasePres
     /**
      * 视图初始化
      */
-    protected abstract void initView(Bundle savedInstanceState,T binding);
+    protected abstract void initView(Bundle savedInstanceState);
 
 
     /**

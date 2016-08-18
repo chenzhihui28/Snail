@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresenter
 
 
     @Override
-    protected void initView(Bundle savedInstanceState, ActivityMainBinding binding) {
+    protected void initView(Bundle savedInstanceState) {
         if (getIntent().getBooleanExtra(FINISHAPP, false)) {
             finish();
         }

@@ -2,7 +2,6 @@ package com.czh.snail.views;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 
 import com.czh.snail.R;
@@ -38,7 +37,7 @@ public class GuideActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState, ViewDataBinding binding) {
+    protected void initView(Bundle savedInstanceState) {
 
     }
 

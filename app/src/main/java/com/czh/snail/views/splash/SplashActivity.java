@@ -30,7 +30,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,SplashPre
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState, ActivitySplashBinding binding) {
+    protected void initView(Bundle savedInstanceState) {
     }
 
 
@@ -52,12 +52,17 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,SplashPre
     }
 
 
+    //请求得到了广告图的URL, 使用Glide展示
     @Override
     public void showNewSplashImage(GankBeautyResult gankBeautyResult) {
         Glide.with(SplashActivity.this).load(gankBeautyResult.beauties.get(0).url)
-                .placeholder(R.drawable.splashscreen).into(mBinding.splashImg);
+                .error(R.drawable.splashscreen)
+                .placeholder(R.drawable.splashscreen)
+                .crossFade()
+                .into(mBinding.splashImg);
     }
 
+    //回调图片剩余显示时间
     @Override
     public void showRemainingTime(int seconds) {
 

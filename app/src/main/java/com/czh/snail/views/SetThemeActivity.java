@@ -38,7 +38,7 @@ public class SetThemeActivity extends BaseActivity<ActivitySetThemeBinding,BaseP
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState, ActivitySetThemeBinding binding) {
+    protected void initView(Bundle savedInstanceState) {
         mBinding.recyclerView.setHasFixedSize(true);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mBinding.recyclerView.setLayoutManager(mLinearLayoutManager);

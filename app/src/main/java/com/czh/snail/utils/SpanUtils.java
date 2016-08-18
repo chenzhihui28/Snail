@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author csl 2015年5月11日 下午3:33:03
+ * @author chenzhihui 2016年8月10日
  */
 public final class SpanUtils {
     private SpanUtils() {

@@ -99,7 +99,7 @@ public abstract class BaseRecyclerAdapter
     /**
      * 将单个数据添加到列表中
      */
-    public void addSingleDate(T t) {
+    public void addSingleData(T t) {
         if (t == null) {
             return;
         }
@@ -107,7 +107,7 @@ public abstract class BaseRecyclerAdapter
         notifyItemInserted(mDatas.size() - 1);
     }
 
-    public void addSingleDate(T t, int position) {
+    public void addSingleData(T t, int position) {
         mDatas.add(position, t);
         notifyItemInserted(position);
 //        notifyItemRangeChanged(position, mDatas.size());
@@ -128,15 +128,15 @@ public abstract class BaseRecyclerAdapter
     /**
      * 将一个List添加到列表中
      */
-    public void addDates(List<T> dates) {
-        if (dates == null || dates.size() == 0) {
+    public void addDatas(List<T> datas) {
+        if (datas == null || datas.size() == 0) {
             return;
         }
-        this.mDatas.addAll(dates);
+        this.mDatas.addAll(datas);
         notifyDataSetChanged();
     }
 
-    public void clearDates() {
+    public void clearDatas() {
         if (!isEmpty()) {
             this.mDatas.clear();
         }
