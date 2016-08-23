@@ -7,12 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".views.splash.SplashActivity">
-
-
         <ImageView
             android:id="@+id/splashImg"
             android:src="@drawable/splashscreen"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </RelativeLayout>

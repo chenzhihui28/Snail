@@ -18,12 +18,11 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onError(Throwable e) {
         if (e != null) {
-            L.i(TAG,"onError "+e.toString());
+            L.e(TAG,"onError "+e.toString());
         }
     }
 
     @Override
     public void onNext(T o) {
-
     }
 }

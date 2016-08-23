@@ -10,7 +10,7 @@ import java.io.IOException;
 import static android.os.Environment.MEDIA_MOUNTED;
 
 public class StorageHelper {
-    private static final String TAG = "StorageHelper";
+    private static final String TAG = StorageHelper.class.getSimpleName();
     private static final String EXTERNAL_STORAGE_PERMISSION = "android.permission.WRITE_EXTERNAL_STORAGE";
     private static final String IMAGE_CACHE_FLOAD_NAME = "Image";
     private static final String VOICE_CACHE_FLOAD_NAME = "Voice";
