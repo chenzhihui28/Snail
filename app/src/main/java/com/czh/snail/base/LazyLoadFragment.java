@@ -10,7 +10,6 @@ public abstract class LazyLoadFragment extends BaseFragment {
 
     /**
      * 注意：setUserVisibleHint方法会比onCreateView方法更早地调用，所以不能单纯在onVisiable的时候
-     *
      * @param isVisibleToUser
      */
     @Override
@@ -27,6 +26,11 @@ public abstract class LazyLoadFragment extends BaseFragment {
 
     protected void onVisible() {
         lazyLoad();
+    }
+
+    @Override
+    protected void initView() {
+
     }
 
     /**

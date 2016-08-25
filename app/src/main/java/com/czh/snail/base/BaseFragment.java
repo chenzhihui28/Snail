@@ -38,13 +38,15 @@ public abstract class BaseFragment<T extends ViewDataBinding, P extends BasePres
             EventBus.getDefault().register(this);
         }
         mBinding = DataBindingUtil.inflate(inflater, getContentViewLayoutID(), container, false);
-        initView();
         isPrepared = true;
         mPresenter = setPresenter();
         mParentActivity = getActivity();
+        initView();
+        initData();
         if (mPresenter != null) {
             mPresenter.start();
         }
+
         return mBinding.getRoot();
     }
 
@@ -52,6 +54,10 @@ public abstract class BaseFragment<T extends ViewDataBinding, P extends BasePres
      * 用于设置监听等工作
      */
     protected abstract void initView();
+
+    protected  void initData(){
+
+    }
 
     protected abstract int getContentViewLayoutID();
 

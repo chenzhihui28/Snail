@@ -65,7 +65,10 @@ public class StorageHelper {
                 return null;
             }
             try {
-                new File(appCacheDir, ".nomediatest").createNewFile();
+                boolean created = new File(appCacheDir, ".nomediatest").createNewFile();
+                if (!created) {
+                    L.e(TAG,"Create File Failed");
+                }
             } catch (IOException e) {
                 L.e(TAG,"Can't create \".nomediatest\" file in application external cache directory");
             }

@@ -43,6 +43,8 @@
     <string name="tab5">tab5</string>
 
     <string name="click_one_more_time_to_exit">再次点击返回键退出程序</string>
+    <string name="network_err">请求出错</string>
+
 
 
 </resources>

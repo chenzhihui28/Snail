@@ -3,20 +3,21 @@ package com.czh.snail.views.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.czh.snail.R;
-import com.czh.snail.adapters.DemoViewPagerAdapter;
+import com.czh.snail.adapters.MainPagerAdapter;
 import com.czh.snail.base.BaseActivity;
 import com.czh.snail.databinding.ActivityMainBinding;
 import com.czh.snail.model.SingData;
 import com.czh.snail.utils.MaterialTheme;
-import com.czh.snail.views.DemoFragment;
 import com.czh.snail.views.SetThemeActivity;
 
 import org.simple.eventbus.Subscriber;
@@ -27,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.functions.Action1;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresenter> {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresenter> {
 
     /**
      * 由于MainActivity的launchMode是SingleTask,所以想要退出程序
@@ -35,8 +36,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresenter
      */
     public static final String FINISHAPP = "finishapp";
     public static final String FINISHMAINACTIVITY = "finishmainactivity";//用于切换主题时为了重新创建MainActivity
-    private DemoFragment currentFragment;
-    private DemoViewPagerAdapter adapter;
+    private Fragment currentFragment;
+    private MainPagerAdapter adapter;
     private ArrayList<AHBottomNavigationItem> bottomNavigationItems = new ArrayList<>();
     private boolean backPressTwice = false;//用于点击两次返回键退出程序
 
@@ -70,7 +71,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresenter
     }
 
 
-
     @Override
     protected void initView(Bundle savedInstanceState) {
         if (getIntent().getBooleanExtra(FINISHAPP, false)) {
@@ -89,15 +89,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresenter
 
         //设置底部icon的底色
         int backgroundColor;
-        try {
-            TypedArray array = getTheme().obtainStyledAttributes(new int[]{
-                    android.R.attr.colorPrimary
-            });
-            backgroundColor = array.getColor(0, ContextCompat.getColor(this, SingData.getInstance().getCurrentTheme().getColorResId()));
-            array.recycle();
-        } catch (Exception e) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            try {
+                TypedArray array = getTheme().obtainStyledAttributes(new int[]{
+                        android.R.attr.colorPrimary
+                });
+                backgroundColor = array.getColor(0, ContextCompat.getColor(this, SingData.getInstance().getCurrentTheme().getColorResId()));
+                array.recycle();
+            } catch (Exception e) {
+                backgroundColor = ContextCompat.getColor(this, SingData.getInstance().getCurrentTheme().getColorResId());
+                e.printStackTrace();
+            }
+        } else {
             backgroundColor = ContextCompat.getColor(this, SingData.getInstance().getCurrentTheme().getColorResId());
-            e.printStackTrace();
         }
 
         mBinding.bottomNavigation.setAccentColor(backgroundColor);
@@ -107,25 +111,23 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresenter
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 currentFragment = adapter.getCurrentFragment();
-                if (wasSelected) {
-                    currentFragment.refresh();
-                    return true;
-                }
-
-                if (currentFragment != null) {
-                    currentFragment.willBeHidden();
-                }
-
+//                if (wasSelected) {
+//                    currentFragment.refresh();
+//                    return true;
+//                }
+//
+//                if (currentFragment != null) {
+//                    currentFragment.willBeHidden();
+//                }
                 mBinding.viewPager.setCurrentItem(position, false);
-                currentFragment.willBeDisplayed();
-
+//                currentFragment.willBeDisplayed();
                 return true;
             }
         });
 
 
         mBinding.viewPager.setOffscreenPageLimit(4);
-        adapter = new DemoViewPagerAdapter(getSupportFragmentManager());
+        adapter = new MainPagerAdapter(getSupportFragmentManager());
         mBinding.viewPager.setAdapter(adapter);
 
         currentFragment = adapter.getCurrentFragment();
@@ -144,7 +146,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainPresenter
     protected boolean isUseEventBus() {
         return true;
     }
-
 
 
     @Override

@@ -23,8 +23,13 @@ public class Repository implements PictureDataSource {
         return RepositoryHelper.INSTANCE;
     }
 
-    public Observable<GankBeautyResult> getSplashPic(){
+    public Observable<GankBeautyResult> getSplashPic() {
         return Network.getGankApi().getBeauties(1, 1);
     }
+
+    public Observable<GankBeautyResult> getWelfareList(int pageSize, int index) {
+        return Network.getGankApi().getBeauties(pageSize, index);
+    }
+
 
 }

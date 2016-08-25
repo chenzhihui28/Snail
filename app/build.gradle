@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion "24.0.1"
 
     defaultConfig {
         applicationId "com.czh.snail"
@@ -74,7 +74,7 @@ dependencies {
 //    https://github.com/shanbay/mock-api
     compile 'com.shanbay.android:mock-api:0.0.1'
 
-
-
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v2.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
 
 }

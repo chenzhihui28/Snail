@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
@@ -84,14 +85,15 @@ public class MaterialThemeDialogFragment extends DialogFragment
             mAlertDialogTheme = (MaterialTheme) args.getSerializable(KEY_ARG_ALERT_DIALOG_THEME);
         }
 
-        // If this is the first creation, default state variables
-        if (savedInstanceState == null) {
-        }
-        // Otherwise, restore state
-        else {
-        }
+//        // If this is the first creation, default state variables
+//        if (savedInstanceState == null) {
+//        }
+//        // Otherwise, restore state
+//        else {
+//        }
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 

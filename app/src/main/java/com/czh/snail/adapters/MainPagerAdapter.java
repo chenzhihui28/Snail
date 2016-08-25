@@ -1,34 +1,36 @@
 package com.czh.snail.adapters;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.czh.snail.views.DemoFragment;
+import com.czh.snail.views.welfare.WelfareFragment;
 
 import java.util.ArrayList;
 
 /**
  *
  */
-public class DemoViewPagerAdapter extends FragmentPagerAdapter {
+public class MainPagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<DemoFragment> fragments = new ArrayList<>();
-    private DemoFragment currentFragment;
+    private ArrayList<Fragment> fragments = new ArrayList<>();
+    private Fragment currentFragment;
 
-    public DemoViewPagerAdapter(FragmentManager fm) {
+    public MainPagerAdapter(FragmentManager fm) {
         super(fm);
 
         fragments.clear();
+        fragments.add(WelfareFragment.newInstance());
         fragments.add(DemoFragment.newInstance(0));
         fragments.add(DemoFragment.newInstance(1));
-        fragments.add(DemoFragment.newInstance(2));
-        fragments.add(DemoFragment.newInstance(3));
-        fragments.add(DemoFragment.newInstance(4));
+//        fragments.add(DemoFragment.newInstance(3));
+//        fragments.add(DemoFragment.newInstance(4));
     }
 
     @Override
-    public DemoFragment getItem(int position) {
+    public Fragment getItem(int position) {
         return fragments.get(position);
     }
 
@@ -40,7 +42,7 @@ public class DemoViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         if (getCurrentFragment() != object) {
-            currentFragment = ((DemoFragment) object);
+            currentFragment = ((Fragment) object);
         }
         super.setPrimaryItem(container, position, object);
     }
@@ -48,7 +50,7 @@ public class DemoViewPagerAdapter extends FragmentPagerAdapter {
     /**
      * Get the current fragment
      */
-    public DemoFragment getCurrentFragment() {
+    public Fragment getCurrentFragment() {
         return currentFragment;
     }
 }

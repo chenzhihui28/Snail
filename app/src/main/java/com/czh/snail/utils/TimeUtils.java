@@ -27,7 +27,7 @@ public class TimeUtils {
             return -1;
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = null;
+        Date date;
         try {
             date = format.parse(time);
         } catch (ParseException e) {
@@ -48,7 +48,7 @@ public class TimeUtils {
             return -1;
         }
         SimpleDateFormat format = new SimpleDateFormat(formatStr);
-        Date date = null;
+        Date date;
         try {
             date = format.parse(time);
         } catch (ParseException e) {
@@ -69,7 +69,7 @@ public class TimeUtils {
             return -1;
         }
         SimpleDateFormat format = new SimpleDateFormat(formatStr);
-        Date date = null;
+        Date date;
         try {
             date = format.parse(time);
         } catch (ParseException e) {
@@ -118,7 +118,7 @@ public class TimeUtils {
         if (TextUtils.isEmpty(time)) {
             return -1;
         }
-        Date date = null;
+        Date date;
         try {
             date = format.parse(time);
         } catch (ParseException e) {
@@ -151,7 +151,7 @@ public class TimeUtils {
         if (TextUtils.isEmpty(time)) {
             return -1;
         }
-        Date date = null;
+        Date date;
         try {
             date = format.parse(time);
         } catch (ParseException e) {
@@ -196,9 +196,9 @@ public class TimeUtils {
     }
 
     public static String translate(String src, String srcFormat, String desFormat) {
-        assert !TextUtils.isEmpty(src);
-        assert !TextUtils.isEmpty(srcFormat);
-        assert !TextUtils.isEmpty(desFormat);
+        if (TextUtils.isEmpty(src) || TextUtils.isEmpty(srcFormat) || TextUtils.isEmpty(desFormat)) {
+            return "";
+        }
         SimpleDateFormat sdf = new SimpleDateFormat(srcFormat);
         SimpleDateFormat sdfDes = new SimpleDateFormat(desFormat);
         Date srcDate;
@@ -212,8 +212,9 @@ public class TimeUtils {
     }
 
     public static String getWeek(String src, String srcFormat) {
-        assert !TextUtils.isEmpty(src);
-        assert !TextUtils.isEmpty(srcFormat);
+        if (TextUtils.isEmpty(src) || TextUtils.isEmpty(srcFormat)) {
+            return "";
+        }
         SimpleDateFormat sdf = new SimpleDateFormat(srcFormat);
         Date srcDate;
         try {

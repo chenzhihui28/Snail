@@ -25,8 +25,6 @@ import rx.Observable;
 import rx.functions.Action1;
 
 public class SetThemeActivity extends BaseActivity<ActivitySetThemeBinding,BasePresenter> {
-    private LinearLayoutManager mLinearLayoutManager;
-    private ThemeListAdapter mThemeListAdapter;
 
     public static Intent newIntent(Activity activity){
         return new Intent(activity, SetThemeActivity.class);
@@ -40,9 +38,9 @@ public class SetThemeActivity extends BaseActivity<ActivitySetThemeBinding,BaseP
     @Override
     protected void initView(Bundle savedInstanceState) {
         mBinding.recyclerView.setHasFixedSize(true);
-        mLinearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
         mBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
-        mThemeListAdapter = new ThemeListAdapter(this, R.layout.layout_item_theme);
+        ThemeListAdapter mThemeListAdapter = new ThemeListAdapter(this, R.layout.layout_item_theme);
         mThemeListAdapter.setDatas(MaterialTheme.getThemeList());
         mBinding.recyclerView.setAdapter(mThemeListAdapter);
         mThemeListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {

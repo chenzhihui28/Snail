@@ -90,7 +90,7 @@ public class MaterialTheme implements Serializable {
 
     public static List<MaterialTheme> getThemeList() {
         if (sThemeList == null) {
-            sThemeList = new ArrayList<MaterialTheme>();
+            sThemeList = new ArrayList<>();
             sThemeList.add(THEME_RED);
             sThemeList.add(THEME_ORANGE);
             sThemeList.add(THEME_YELLOW);
@@ -104,7 +104,7 @@ public class MaterialTheme implements Serializable {
 
     public static List<MaterialTheme> getDialogThemeList() {
         if (sDialogThemeList == null) {
-            sDialogThemeList = new ArrayList<MaterialTheme>();
+            sDialogThemeList = new ArrayList<>();
             sDialogThemeList.add(THEME_DIALOG_RED);
             sDialogThemeList.add(THEME_DIALOG_ORANGE);
             sDialogThemeList.add(THEME_DIALOG_YELLOW);
@@ -118,7 +118,7 @@ public class MaterialTheme implements Serializable {
 
     public static List<MaterialTheme> getAlertDialogThemeList() {
         if (sAlertDialogThemeList == null) {
-            sAlertDialogThemeList = new ArrayList<MaterialTheme>();
+            sAlertDialogThemeList = new ArrayList<>();
             sAlertDialogThemeList.add(THEME_ALERT_DIALOG_RED);
             sAlertDialogThemeList.add(THEME_ALERT_DIALOG_ORANGE);
             sAlertDialogThemeList.add(THEME_ALERT_DIALOG_YELLOW);
@@ -153,10 +153,11 @@ public class MaterialTheme implements Serializable {
 
         MaterialTheme that = (MaterialTheme) o;
 
-        if (nameResId != that.nameResId) {
-            return false;
-        }
-        return themeResId == that.themeResId;
+//        if (nameResId != that.nameResId) {
+//            return false;
+//        }
+//        return themeResId == that.themeResId;
+        return nameResId == that.nameResId && themeResId == that.themeResId;
     }
 
     @Override

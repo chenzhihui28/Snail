@@ -76,6 +76,7 @@ public class SharepreferenceUtils {
                 Class clz = SharedPreferences.Editor.class;
                 return clz.getMethod("apply");
             } catch (NoSuchMethodException e) {
+                e.printStackTrace();
             }
             return null;
         }

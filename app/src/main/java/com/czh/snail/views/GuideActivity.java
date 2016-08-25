@@ -17,7 +17,7 @@ public class GuideActivity extends BaseActivity {
 
     public static Intent newIntent(Activity activity){
         return new Intent(activity, GuideActivity.class);
-    };
+    }
 
     @Override
     protected boolean setOtherTheme() {

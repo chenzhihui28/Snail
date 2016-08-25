@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.czh.snail">
 
     <!-- Permissions -->
@@ -8,6 +9,7 @@
     <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
+        tools:replace="android:allowBackup"
         android:name=".utils.MyApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"

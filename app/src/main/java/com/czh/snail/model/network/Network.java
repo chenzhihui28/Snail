@@ -75,7 +75,7 @@ public class Network {
         }
         char aChar;
         int len = theString.length();
-        StringBuffer outBuffer = new StringBuffer(len);
+        StringBuilder outBuffer = new StringBuilder(len);
         for (int x = 0; x < len;) {
             aChar = theString.charAt(x++);
             if (aChar == '\\') {

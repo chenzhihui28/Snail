@@ -31,8 +31,6 @@ public class SplashPresenter implements BasePresenter, SplashContract.Presenter{
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private Observable timerObservable;
     private Subscription timerObservableSubscription;
-
-    private Observable getImageObservable;
     private Subscription getImageSubscription;
     private static final int SPLASH_TIME = 5;// 单位:秒
     private static final int REQUEST_CODE = 0;
@@ -65,7 +63,7 @@ public class SplashPresenter implements BasePresenter, SplashContract.Presenter{
 
     //获取今天的图
     private void getTodayImage(){
-        getImageObservable = Repository.getInstance().getSplashPic();
+        Observable getImageObservable = Repository.getInstance().getSplashPic();
         getImageSubscription = getImageObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<GankBeautyResult>() {
             @Override
