@@ -24,7 +24,7 @@ import java.util.List;
 
 public class WelfareFragment extends LazyLoadFragment<FragmentWelfareBinding, WelfarePresenter> implements WelfareContract.View {
     private WelfareListAdapter mWelfareListAdapter;
-    private View loadAllCompleteView;
+    private View loadAllCompleteView, mEmptyView, mNoMoreView;
 
     public static WelfareFragment newInstance() {
         return new WelfareFragment();
@@ -82,7 +82,7 @@ public class WelfareFragment extends LazyLoadFragment<FragmentWelfareBinding, We
                 mWelfareListAdapter.loadComplete();
                 if (loadAllCompleteView == null) {
                     loadAllCompleteView = mParentActivity.getLayoutInflater()
-                            .inflate(R.layout.footer_loa_all_complete
+                            .inflate(R.layout.footer_no_more_data
                                     , (ViewGroup) mBinding.recyclerView.getParent(), false);
                 }
                 mWelfareListAdapter.addFooterView(loadAllCompleteView);
@@ -96,6 +96,23 @@ public class WelfareFragment extends LazyLoadFragment<FragmentWelfareBinding, We
                     mPresenter.getWelfareList(false);
                 }
             });
+        } else {
+            if (isFirstPage) {
+                if (mEmptyView == null) {
+                    mEmptyView = mParentActivity.getLayoutInflater().inflate(R.layout.empty_view
+                            , (ViewGroup) mBinding.recyclerView.getParent(), false);
+                }
+                mWelfareListAdapter.setEmptyView(mEmptyView);
+
+            } else {
+                mWelfareListAdapter.loadComplete();
+                if (mNoMoreView == null) {
+                    mNoMoreView = mParentActivity.getLayoutInflater().inflate(R.layout.footer_no_more_data
+                            , (ViewGroup) mBinding.recyclerView.getParent(), false);
+                }
+                mWelfareListAdapter.addFooterView(mNoMoreView);
+            }
+            mWelfareListAdapter.notifyDataSetChanged();
         }
 
 

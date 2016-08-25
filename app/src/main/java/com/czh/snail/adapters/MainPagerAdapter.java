@@ -11,9 +11,6 @@ import com.czh.snail.views.welfare.WelfareFragment;
 
 import java.util.ArrayList;
 
-/**
- *
- */
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Fragment> fragments = new ArrayList<>();
@@ -22,9 +19,9 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     public MainPagerAdapter(FragmentManager fm) {
         super(fm);
         fragments.clear();
+        fragments.add(DemoFragment.newInstance(1));
         fragments.add(WelfareFragment.newInstance());
         fragments.add(KnowledgeFragment.newInstance());
-        fragments.add(DemoFragment.newInstance(1));
     }
 
     @Override
@@ -45,9 +42,6 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         super.setPrimaryItem(container, position, object);
     }
 
-    /**
-     * Get the current fragment
-     */
     public Fragment getCurrentFragment() {
         return currentFragment;
     }

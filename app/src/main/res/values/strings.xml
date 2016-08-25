@@ -44,6 +44,7 @@
 
     <string name="click_one_more_time_to_exit">再次点击返回键退出程序</string>
     <string name="network_err">请求出错</string>
+    <string name="no_data">没有数据!</string>
     <string name="load_all_completed">没有了哦!</string>
 
 
