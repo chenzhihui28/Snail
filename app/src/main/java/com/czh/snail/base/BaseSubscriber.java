@@ -15,6 +15,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
     }
 
+
     @Override
     public void onError(Throwable e) {
         if (e != null) {
@@ -24,5 +25,6 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onNext(T o) {
+        L.e(TAG,"onNext");
     }
 }

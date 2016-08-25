@@ -7,7 +7,6 @@ import android.os.StrictMode;
 import com.czh.snail.BuildConfig;
 import com.czh.snail.views.CustomErrorActivity;
 import com.nshmura.strictmodenotifier.StrictModeNotifier;
-import com.squareup.leakcanary.LeakCanary;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 
@@ -21,8 +20,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;//全局上下文获取
-        LeakCanary.install(this);//内存泄漏检测
-        //异常捕获
+//        LeakCanary.install(this);//内存泄漏检测
+//        异常捕获
         CustomActivityOnCrash.setErrorActivityClass(CustomErrorActivity.class);
         CustomActivityOnCrash.install(this);
 

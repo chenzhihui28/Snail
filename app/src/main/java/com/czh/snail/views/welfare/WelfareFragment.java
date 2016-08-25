@@ -5,11 +5,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.czh.snail.R;
-import com.czh.snail.adapters.QuickAdapter;
-import com.czh.snail.base.BaseFragment;
+import com.czh.snail.adapters.WelfareListAdapter;
+import com.czh.snail.base.LazyLoadFragment;
 import com.czh.snail.databinding.FragmentWelfareBinding;
 import com.czh.snail.model.beans.GankBeauty;
 
@@ -20,34 +22,28 @@ import java.util.List;
  * Created by chenzhihui on 16/8/23.
  */
 
-public class WelfareFragment extends BaseFragment<FragmentWelfareBinding,WelfarePresenter> implements WelfareContract.View{
-    QuickAdapter mQuickAdapter;
+public class WelfareFragment extends LazyLoadFragment<FragmentWelfareBinding, WelfarePresenter> implements WelfareContract.View {
+    private WelfareListAdapter mWelfareListAdapter;
+    private View loadAllCompleteView;
+
     public static WelfareFragment newInstance() {
-        WelfareFragment fragment = new WelfareFragment();
-        return fragment;
+        return new WelfareFragment();
     }
 
     @Override
     protected void initView() {
-        mQuickAdapter = new QuickAdapter(new ArrayList<GankBeauty>());
-        mQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        mBinding.recyclerView.setAdapter(mQuickAdapter);
+        mWelfareListAdapter = new WelfareListAdapter(new ArrayList<GankBeauty>());
+        mWelfareListAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        mBinding.recyclerView.setAdapter(mWelfareListAdapter);
         mBinding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));
         mBinding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.getWelfarelist(true);
+                mPresenter.getWelfareList(true);
             }
         });
-        mQuickAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                mPresenter.getWelfarelist(false);
-            }
-        });
+
     }
-
-
 
     @Override
     protected int getContentViewLayoutID() {
@@ -61,35 +57,62 @@ public class WelfareFragment extends BaseFragment<FragmentWelfareBinding,Welfare
     }
 
     @Override
-    public void setRefreshing(boolean refreshing) {
-        mBinding.swipeRefreshLayout.setRefreshing(refreshing);
+    public void startRefresh() {
+        mBinding.swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
-    public void clearList() {
-        mQuickAdapter.getData().clear();
-        mQuickAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void addList(List<GankBeauty> gankBeautyList) {
-        if (gankBeautyList.size() == WelfarePresenter.PAGE_SIZE) {
-
+    public void stopRefreshingOrLoading(boolean isFirstPage) {
+        if (isFirstPage) {
+            mBinding.swipeRefreshLayout.setRefreshing(false);
+        } else {
+            mWelfareListAdapter.loadComplete();
         }
-        mQuickAdapter.addData(gankBeautyList);
-        mQuickAdapter.notifyDataSetChanged();
     }
 
+
     @Override
-    public void showErr(String err) {
+    public void refreshOrLoadMoreSucceed(List<GankBeauty> gankBeautyList, boolean isFirstPage) {
+        if (gankBeautyList.size() > 0) {
+            if (isFirstPage) {
+                mWelfareListAdapter.getData().clear();
+            }
+            mWelfareListAdapter.addData(gankBeautyList);
+            if (gankBeautyList.size() < WelfarePresenter.PAGE_SIZE) {
+                mWelfareListAdapter.loadComplete();
+                if (loadAllCompleteView == null) {
+                    loadAllCompleteView = mParentActivity.getLayoutInflater()
+                            .inflate(R.layout.footer_loa_all_complete
+                                    , (ViewGroup) mBinding.recyclerView.getParent(), false);
+                }
+                mWelfareListAdapter.addFooterView(loadAllCompleteView);
+            } else {
+                mWelfareListAdapter.openLoadMore(WelfarePresenter.PAGE_SIZE);
+            }
+            mWelfareListAdapter.notifyDataSetChanged();
+            mWelfareListAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+                @Override
+                public void onLoadMoreRequested() {
+                    mPresenter.getWelfareList(false);
+                }
+            });
+        }
+
+
+    }
+
+
+    @Override
+    public void refreshOrLoadMoreError(String err, boolean isFirstPage) {
+        if (isFirstPage) {
+            mWelfareListAdapter.removeAllFooterView();
+        } else {
+            mWelfareListAdapter.showLoadMoreFailedView();
+        }
         if (TextUtils.isEmpty(err)) {
             err = getString(R.string.network_err);
         }
-        Snackbar.make(mBinding.getRoot(),err, Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showEmpty() {
+        Snackbar.make(mBinding.getRoot(), err, Snackbar.LENGTH_LONG).show();
     }
 
 

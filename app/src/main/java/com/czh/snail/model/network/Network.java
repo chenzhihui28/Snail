@@ -18,7 +18,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Network {
-    private static final String TAG = "Network";
+    private static final String TAG = Network.class.getSimpleName();
     private static GankApi gankApi;
     private static OkHttpClient okHttpClient = initOkHttpClient();
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
@@ -41,9 +41,13 @@ public class Network {
 
 
     public static OkHttpClient initOkHttpClient(){
-        okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new LogInterceptor())
-                .build();
+        try {
+            okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(new LogInterceptor())
+                    .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return okHttpClient;
     }
 
@@ -51,7 +55,7 @@ public class Network {
         @Override
         public okhttp3.Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
-            L.v(TAG, "request:" + request.toString());
+            L.i(TAG, "request:" + request.toString());
 //            long t1 = System.nanoTime();
             okhttp3.Response response = chain.proceed(chain.request());
 //            long t2 = System.nanoTime();

@@ -1,9 +1,12 @@
 package com.czh.snail.views.welfare;
 
+import com.czh.snail.R;
 import com.czh.snail.base.BasePresenter;
 import com.czh.snail.base.BaseSubscriber;
 import com.czh.snail.model.Repository;
 import com.czh.snail.model.beans.GankBeautyResult;
+import com.czh.snail.utils.L;
+import com.czh.snail.utils.MyApplication;
 
 import rx.Observable;
 import rx.Subscription;
@@ -19,6 +22,7 @@ public class WelfarePresenter implements BasePresenter, WelfareContract.Presente
     private Subscription getImageListSubscription;
     public final static int PAGE_SIZE = 10;
     private static int pageIndex = 1;
+    private static final String TAG = WelfarePresenter.class.getSimpleName();
 
     public WelfarePresenter(WelfareContract.View view) {
         mView = view;
@@ -26,45 +30,48 @@ public class WelfarePresenter implements BasePresenter, WelfareContract.Presente
 
     @Override
     public void start() {
-        getWelfarelist(true);
+        getWelfareList(true);
     }
 
 
     //获取图片列表
     @Override
-    public void getWelfarelist(boolean firstPage) {
-        if (firstPage) {
-            mView.setRefreshing(true);
+    public void getWelfareList(final boolean isFirstPage) {
+        if (isFirstPage) {
             pageIndex = 1;
-            mView.clearList();
+            mView.startRefresh();
         } else {
             pageIndex += 1;
         }
-        Observable getImageListObservable = Repository.getInstance().getWelfareList(PAGE_SIZE,pageIndex);
+        Observable getImageListObservable = Repository.getInstance().getWelfareList(PAGE_SIZE, pageIndex);
         getImageListSubscription = getImageListObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<GankBeautyResult>() {
                     @Override
                     public void onCompleted() {
-                        mView.setRefreshing(false);
+                        super.onCompleted();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        mView.setRefreshing(false);
-                        mView.showErr(e.getMessage().toString());
+                        L.e(TAG, "onError" + e);
+                        String errString = null;
+                        if (e != null) {
+                            errString = e.getMessage();
+                        }
+                        mView.stopRefreshingOrLoading(isFirstPage);
+                        mView.refreshOrLoadMoreError(errString, isFirstPage);
                     }
 
                     @Override
                     public void onNext(GankBeautyResult gankBeautyResult) {
-                        mView.setRefreshing(false);
+                        L.e(TAG, "onNext" + gankBeautyResult);
+                        if (isFirstPage) {
+                            mView.stopRefreshingOrLoading(true);
+                        }
                         if (gankBeautyResult != null && gankBeautyResult.beauties != null) {
-                            if (gankBeautyResult.beauties.size() == 0) {
-                                mView.showEmpty();
-                            } else {
-                                mView.addList(gankBeautyResult.beauties);
-                            }
+                            mView.refreshOrLoadMoreSucceed(gankBeautyResult.beauties, isFirstPage);
                         } else {
-                            onError(new Throwable());
+                            mView.refreshOrLoadMoreError(MyApplication.getContext().getString(R.string.network_err), isFirstPage);
                         }
                     }
                 });

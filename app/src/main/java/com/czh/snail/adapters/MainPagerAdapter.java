@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.czh.snail.views.DemoFragment;
+import com.czh.snail.views.knowledge.KnowledgeFragment;
 import com.czh.snail.views.welfare.WelfareFragment;
 
 import java.util.ArrayList;
@@ -20,13 +21,10 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     public MainPagerAdapter(FragmentManager fm) {
         super(fm);
-
         fragments.clear();
         fragments.add(WelfareFragment.newInstance());
-        fragments.add(DemoFragment.newInstance(0));
+        fragments.add(KnowledgeFragment.newInstance());
         fragments.add(DemoFragment.newInstance(1));
-//        fragments.add(DemoFragment.newInstance(3));
-//        fragments.add(DemoFragment.newInstance(4));
     }
 
     @Override

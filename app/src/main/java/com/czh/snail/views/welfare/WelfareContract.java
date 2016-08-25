@@ -11,15 +11,13 @@ import java.util.List;
  */
 public interface WelfareContract {
     interface View {
-        void setRefreshing(boolean refreshing);
-        void clearList();
-        void addList(List<GankBeauty> gankBeautyList);
-        void showErr(String err);
-        void showEmpty();
-
+        void startRefresh();
+        void stopRefreshingOrLoading(boolean isFirstPage);
+        void refreshOrLoadMoreSucceed(List<GankBeauty> gankBeautyList,boolean isFirstPage);
+        void refreshOrLoadMoreError(String err, boolean isFirstPage);
     }
 
     interface Presenter extends BasePresenter {
-        void getWelfarelist(boolean firstPage);
+        void getWelfareList(boolean firstPage);
     }
 }

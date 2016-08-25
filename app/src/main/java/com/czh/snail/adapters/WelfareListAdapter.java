@@ -11,13 +11,8 @@ import com.czh.snail.model.beans.GankBeauty;
 
 import java.util.List;
 
-/**
- * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
- */
-public class QuickAdapter extends BaseQuickAdapter<GankBeauty> {
-
-
-    public QuickAdapter(List<GankBeauty> list) {
+public class WelfareListAdapter extends BaseQuickAdapter<GankBeauty> {
+    public WelfareListAdapter(List<GankBeauty> list) {
         super(R.layout.item_welfare_list, list);
     }
 

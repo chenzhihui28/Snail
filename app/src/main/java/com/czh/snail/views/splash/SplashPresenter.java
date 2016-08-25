@@ -32,7 +32,7 @@ public class SplashPresenter implements BasePresenter, SplashContract.Presenter{
     private Observable timerObservable;
     private Subscription timerObservableSubscription;
     private Subscription getImageSubscription;
-    private static final int SPLASH_TIME = 5;// 单位:秒
+    private static final int SPLASH_TIME = 2;// 单位:秒
     private static final int REQUEST_CODE = 0;
 
 
@@ -72,15 +72,14 @@ public class SplashPresenter implements BasePresenter, SplashContract.Presenter{
 
             @Override
             public void onError(Throwable e) {
-                mView.toMainActivityThenFinish();
+                super.onError(e);
+//                mView.toMainActivityThenFinish();
             }
 
             @Override
             public void onNext(GankBeautyResult gankBeautyResult) {
                 if (gankBeautyResult != null && gankBeautyResult.beauties != null && gankBeautyResult.beauties.size() >= 1) {
                     mView.showNewSplashImage(gankBeautyResult);
-                }else {
-                    onError(new Throwable());
                 }
             }
         });

@@ -46,7 +46,6 @@ public abstract class BaseFragment<T extends ViewDataBinding, P extends BasePres
         if (mPresenter != null) {
             mPresenter.start();
         }
-
         return mBinding.getRoot();
     }
 
