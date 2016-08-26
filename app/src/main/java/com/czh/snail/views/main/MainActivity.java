@@ -18,7 +18,7 @@ import com.czh.snail.base.BaseActivity;
 import com.czh.snail.databinding.ActivityMainBinding;
 import com.czh.snail.model.SingData;
 import com.czh.snail.utils.MaterialTheme;
-import com.czh.snail.views.behaviortest.TestBehaviorActivity;
+import com.czh.snail.views.SetThemeActivity;
 
 import org.simple.eventbus.Subscriber;
 
@@ -39,6 +39,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     private MainPagerAdapter adapter;
     private ArrayList<AHBottomNavigationItem> bottomNavigationItems = new ArrayList<>();
     private boolean backPressTwice = false;//用于点击两次返回键退出程序
+
+
+    public static final int[] TABS = {R.string.tab1, R.string.tab2, R.string.tab3};
 
     public static Intent newIntent(Activity activity) {
         return new Intent(activity, MainActivity.class);
@@ -79,9 +82,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
             finish();
         }
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab1, R.drawable.ic_maps_local_attraction, R.color.color_tab_1);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab2, R.drawable.ic_maps_local_bar, R.color.color_tab_2);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab3, R.drawable.ic_maps_local_restaurant, R.color.color_tab_3);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(TABS[0], R.drawable.ic_maps_local_attraction, R.color.color_tab_1);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(TABS[1], R.drawable.ic_maps_local_bar, R.color.color_tab_2);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(TABS[2], R.drawable.ic_maps_local_restaurant, R.color.color_tab_3);
 
         bottomNavigationItems.add(item1);
         bottomNavigationItems.add(item2);
@@ -127,8 +130,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         mBinding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(TestBehaviorActivity.newIntent(MainActivity.this));
-//                startActivity(SetThemeActivity.newIntent(MainActivity.this));
+//                startActivity(TestBehaviorActivity.newIntent(MainActivity.this));
+                startActivity(SetThemeActivity.newIntent(MainActivity.this));
             }
         });
 
