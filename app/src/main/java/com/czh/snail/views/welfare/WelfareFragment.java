@@ -36,6 +36,7 @@ public class WelfareFragment extends LazyLoadFragment<FragmentWelfareBinding, We
         mWelfareListAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mBinding.recyclerView.setAdapter(mWelfareListAdapter);
         mBinding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));
+//        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mParentActivity));
         mBinding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -103,7 +104,6 @@ public class WelfareFragment extends LazyLoadFragment<FragmentWelfareBinding, We
                             , (ViewGroup) mBinding.recyclerView.getParent(), false);
                 }
                 mWelfareListAdapter.setEmptyView(mEmptyView);
-
             } else {
                 mWelfareListAdapter.loadComplete();
                 if (mNoMoreView == null) {

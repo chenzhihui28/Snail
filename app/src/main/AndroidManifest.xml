@@ -29,8 +29,8 @@
         <activity android:name=".views.PermissionsActivity"/>
         <activity android:name=".views.CustomErrorActivity"/>
         <activity android:name=".views.GuideActivity"/>
-        <activity android:name=".views.SetThemeActivity">
-        </activity>
+        <activity android:name=".views.SetThemeActivity"/>
+        <activity android:name=".views.behaviortest.TestBehaviorActivity"/>
     </application>
 
 </manifest>

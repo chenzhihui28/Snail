@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data></data>
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.chenzhihui.snail.views.GuideActivity">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:background="#FF00FF00"
+            app:layout_behavior="com.czh.snail.views.behaviortest.TestScrollBehavior">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentLeft"
+                    android:textColor="@android:color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentLeft"
+                    android:textColor="@android:color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentLeft"
+                    android:textColor="@android:color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentLeft"
+                    android:textColor="@android:color/white"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentLeft"
+                    android:textColor="@android:color/white"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentLeft"
+                    android:textColor="@android:color/white"/>
+
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="#FFFF0000"
+            app:layout_behavior="com.czh.snail.views.behaviortest.TestScrollBehavior">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentRight"
+                    android:textColor="@android:color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentRight"
+                    android:textColor="@android:color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentRight"
+                    android:textColor="@android:color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentRight"
+                    android:textColor="@android:color/white"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentRight"
+                    android:textColor="@android:color/white"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="contentRight"
+                    android:textColor="@android:color/white"/>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+        <!--<Button-->
+        <!--android:id="@+id/btnCurrent"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="left|bottom"-->
+        <!--android:text="btnCurrent"/>-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/imgTest"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_gravity="center|bottom"-->
+        <!--android:scaleType="centerInside"-->
+        <!--android:src="@drawable/splashscreen"-->
+        <!--app:layout_behavior="com.czh.snail.views.behaviortest.TestDependencyBehavior"/>-->
+
+        <!--<Button-->
+        <!--android:id="@+id/btnDependency"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right|bottom"-->
+        <!--android:text="btnDependency"-->
+        <!--app:layout_behavior="com.czh.snail.views.behaviortest.TestDependencyBehavior"/>-->
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

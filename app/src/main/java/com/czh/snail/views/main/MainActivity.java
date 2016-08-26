@@ -6,8 +6,8 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -18,7 +18,7 @@ import com.czh.snail.base.BaseActivity;
 import com.czh.snail.databinding.ActivityMainBinding;
 import com.czh.snail.model.SingData;
 import com.czh.snail.utils.MaterialTheme;
-import com.czh.snail.views.SetThemeActivity;
+import com.czh.snail.views.behaviortest.TestBehaviorActivity;
 
 import org.simple.eventbus.Subscriber;
 
@@ -36,7 +36,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
      */
     public static final String FINISHAPP = "finishapp";
     public static final String FINISHMAINACTIVITY = "finishmainactivity";//用于切换主题时为了重新创建MainActivity
-    private Fragment currentFragment;
     private MainPagerAdapter adapter;
     private ArrayList<AHBottomNavigationItem> bottomNavigationItems = new ArrayList<>();
     private boolean backPressTwice = false;//用于点击两次返回键退出程序
@@ -52,7 +51,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         return intent;
     }
 
-    //用于切换主题颜色
+    //用于切换主题颜色 TODO 可优化,使用recreate方法方便一点
     public static Intent newIntent(Activity activity, MaterialTheme materialTheme) {
         Intent intent = new Intent(activity, MainActivity.class);
         intent.putExtra(BaseActivity.KEY_ARG_CURRENT_THEME, materialTheme);
@@ -73,6 +72,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         if (getIntent().getBooleanExtra(FINISHAPP, false)) {
             finish();
         }
@@ -110,17 +112,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         mBinding.bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
-                currentFragment = adapter.getCurrentFragment();
-//                if (wasSelected) {
-//                    currentFragment.refresh();
-//                    return true;
-//                }
-//
-//                if (currentFragment != null) {
-//                    currentFragment.willBeHidden();
-//                }
                 mBinding.viewPager.setCurrentItem(position, false);
-//                currentFragment.willBeDisplayed();
                 return true;
             }
         });
@@ -130,13 +122,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         adapter = new MainPagerAdapter(getSupportFragmentManager());
         mBinding.viewPager.setAdapter(adapter);
 
-        currentFragment = adapter.getCurrentFragment();
 
 
         mBinding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(SetThemeActivity.newIntent(MainActivity.this));
+                startActivity(TestBehaviorActivity.newIntent(MainActivity.this));
+//                startActivity(SetThemeActivity.newIntent(MainActivity.this));
             }
         });
 
