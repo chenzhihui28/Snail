@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.czh.snail.views.DemoFragment;
 import com.czh.snail.views.knowledge.KnowledgeFragment;
-import com.czh.snail.views.welfare.WelfareFragment;
+import com.czh.snail.views.welfare.welfarelist.WelfareFragment;
 
 import java.util.ArrayList;
 

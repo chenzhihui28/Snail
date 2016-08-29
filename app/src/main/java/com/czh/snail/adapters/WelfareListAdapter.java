@@ -27,7 +27,7 @@ public class WelfareListAdapter extends BaseQuickAdapter<GankBeauty> {
 //                .addOnClickListener(R.id.tweetName)
 //                .linkify(R.id.tweetText);
         Glide.with(mContext).load(item.url).crossFade().placeholder(R.mipmap.ic_launcher)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE).error(R.mipmap.ic_launcher)
                 .into((ImageView) helper.getView(R.id.imgWelfareItem));
 
     }

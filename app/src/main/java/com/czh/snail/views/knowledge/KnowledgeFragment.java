@@ -15,7 +15,7 @@ public class KnowledgeFragment extends LazyLoadFragment<FragmentKnowledgeBinding
 
     @Override
     protected void initView() {
-
+        mBinding.progressBar.show();
     }
 
     @Override

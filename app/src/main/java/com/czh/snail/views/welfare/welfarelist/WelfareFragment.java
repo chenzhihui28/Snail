@@ -1,4 +1,4 @@
-package com.czh.snail.views.welfare;
+package com.czh.snail.views.welfare.welfarelist;
 
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.czh.snail.R;
 import com.czh.snail.adapters.WelfareListAdapter;
 import com.czh.snail.base.LazyLoadFragment;
 import com.czh.snail.databinding.FragmentWelfareBinding;
 import com.czh.snail.model.beans.GankBeauty;
+import com.czh.snail.views.welfare.welfaredetail.WelFareDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,15 @@ public class WelfareFragment extends LazyLoadFragment<FragmentWelfareBinding, We
                 mPresenter.getWelfareList(true);
             }
         });
+        mBinding.recyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                if (mWelfareListAdapter.getItem(i) != null) {
+                    startActivity(WelFareDetailActivity.newIntent(mParentActivity,mWelfareListAdapter.getItem(i).url));
+                }
+            }
+        });
+
 
     }
 

@@ -77,6 +77,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     protected void initView(Bundle savedInstanceState) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mBinding.toolbar.setTitle(TABS[0]);
 
         if (getIntent().getBooleanExtra(FINISHAPP, false)) {
             finish();
@@ -116,6 +117,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 mBinding.viewPager.setCurrentItem(position, false);
+                mBinding.toolbar.setTitle(TABS[position]);
                 return true;
             }
         });

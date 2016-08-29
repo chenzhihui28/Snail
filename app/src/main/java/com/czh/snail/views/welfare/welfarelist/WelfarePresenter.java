@@ -1,4 +1,4 @@
-package com.czh.snail.views.welfare;
+package com.czh.snail.views.welfare.welfarelist;
 
 import com.czh.snail.R;
 import com.czh.snail.base.BasePresenter;

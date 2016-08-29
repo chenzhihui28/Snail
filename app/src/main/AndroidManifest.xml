@@ -31,6 +31,7 @@
         <activity android:name=".views.GuideActivity"/>
         <activity android:name=".views.SetThemeActivity"/>
         <activity android:name=".views.behaviortest.TestBehaviorActivity"/>
+        <activity android:name=".views.welfare.welfaredetail.WelFareDetailActivity"/>
     </application>
 
 </manifest>
