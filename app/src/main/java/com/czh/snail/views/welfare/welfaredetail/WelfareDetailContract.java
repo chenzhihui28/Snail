@@ -8,8 +8,12 @@ import com.czh.snail.base.BasePresenter;
  */
 public interface WelfareDetailContract {
     interface View {
+        void showImg(String url);
+        void showSnack(int message);
+
     }
 
     interface Presenter extends BasePresenter {
+        void download();
     }
 }

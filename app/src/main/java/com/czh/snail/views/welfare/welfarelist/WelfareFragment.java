@@ -1,6 +1,9 @@
 package com.czh.snail.views.welfare.welfarelist;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -15,6 +18,7 @@ import com.czh.snail.adapters.WelfareListAdapter;
 import com.czh.snail.base.LazyLoadFragment;
 import com.czh.snail.databinding.FragmentWelfareBinding;
 import com.czh.snail.model.beans.GankBeauty;
+import com.czh.snail.utils.TransitionHelper;
 import com.czh.snail.views.welfare.welfaredetail.WelFareDetailActivity;
 
 import java.util.ArrayList;
@@ -38,7 +42,6 @@ public class WelfareFragment extends LazyLoadFragment<FragmentWelfareBinding, We
         mWelfareListAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mBinding.recyclerView.setAdapter(mWelfareListAdapter);
         mBinding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));
-//        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mParentActivity));
         mBinding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -49,12 +52,26 @@ public class WelfareFragment extends LazyLoadFragment<FragmentWelfareBinding, We
             @Override
             public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 if (mWelfareListAdapter.getItem(i) != null) {
-                    startActivity(WelFareDetailActivity.newIntent(mParentActivity,mWelfareListAdapter.getItem(i).url));
+                    transitionToActivity(WelFareDetailActivity.class,view.findViewById(R.id.imgWelfareItem)
+                            ,mWelfareListAdapter.getItem(i));
                 }
             }
         });
+    }
 
 
+    private void transitionToActivity(Class target, View v, GankBeauty sample) {
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(mParentActivity, false,
+                new Pair<>(v, getString(R.string.transition_welfare_item_img)));
+        startActivity(target, pairs, sample);
+    }
+
+    private void startActivity(Class target, Pair<View, String>[] pairs, GankBeauty sample) {
+        Intent i = new Intent(mParentActivity, target);
+        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(mParentActivity, pairs);
+        i.putExtra(WelFareDetailActivity.INTENT_ENTITY, sample);
+        mParentActivity.startActivity(i, transitionActivityOptions.toBundle());
     }
 
     @Override

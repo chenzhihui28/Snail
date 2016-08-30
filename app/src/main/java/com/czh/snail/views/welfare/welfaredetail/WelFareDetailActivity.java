@@ -1,9 +1,8 @@
 package com.czh.snail.views.welfare.welfaredetail;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -14,13 +13,7 @@ import com.czh.snail.databinding.ActivityWelfareDetailBinding;
 
 public class WelFareDetailActivity extends BaseActivity<ActivityWelfareDetailBinding
         , WelfareDetailPresenter> implements WelfareDetailContract.View {
-    public static final String INTENT_URL = "intent_detail_url";
-
-    public static Intent newIntent(Activity activity, String url) {
-        Intent intent = new Intent(activity, WelFareDetailActivity.class);
-        intent.putExtra(INTENT_URL, url);
-        return intent;
-    }
+    public static final String INTENT_ENTITY = "intent_entity";
 
 
     @Override
@@ -35,12 +28,32 @@ public class WelFareDetailActivity extends BaseActivity<ActivityWelfareDetailBin
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        String url = getIntent().getStringExtra(INTENT_URL);
-        if (!TextUtils.isEmpty(url)) {
-            Glide.with(this).load(url).crossFade().placeholder(R.mipmap.ic_launcher)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE).error(R.mipmap.ic_launcher)
-                    .into(mBinding.imgDetail);
-        }
+        getWindow().getEnterTransition().setDuration(500);
+
+        mBinding.imgDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        mBinding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.download();
+            }
+        });
     }
 
+
+    @Override
+    public void showImg(String url) {
+        Glide.with(this).load(url).crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(mBinding.imgDetail);
+    }
+
+    @Override
+    public void showSnack(int message) {
+        Snackbar.make(mBinding.getRoot(), message, Snackbar.LENGTH_SHORT).show();
+    }
 }

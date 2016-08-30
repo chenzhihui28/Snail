@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.czh.snail.model.SingData;
+import com.czh.snail.utils.L;
 import com.czh.snail.utils.MaterialTheme;
 
 import org.simple.eventbus.EventBus;
@@ -22,6 +23,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, E extends BasePres
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        L.i(this.getClass().getSimpleName()+" onCreate");
         Bundle args = getIntent().getExtras();
         //用于切换主题,这一段必须要在super.onCreate(savedInstanceState);之前
         if (args != null) {

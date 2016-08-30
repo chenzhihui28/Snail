@@ -5,10 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.czh.snail.views.DemoFragment;
-import com.czh.snail.views.knowledge.KnowledgeFragment;
-import com.czh.snail.views.welfare.welfarelist.WelfareFragment;
-
 import java.util.ArrayList;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
@@ -16,12 +12,9 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragments = new ArrayList<>();
     private Fragment currentFragment;
 
-    public MainPagerAdapter(FragmentManager fm) {
+    public MainPagerAdapter(FragmentManager fm,ArrayList<Fragment> data ) {
         super(fm);
-        fragments.clear();
-        fragments.add(DemoFragment.newInstance(1));
-        fragments.add(WelfareFragment.newInstance());
-        fragments.add(KnowledgeFragment.newInstance());
+        fragments = data;
     }
 
     @Override

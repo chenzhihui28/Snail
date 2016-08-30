@@ -36,16 +36,18 @@
     <string name="deny_and_quit">残忍拒绝并退出</string>
 
     <!-- tab name -->
-    <string name="tab1">tab1</string>
-    <string name="tab2">tab2</string>
-    <string name="tab3">tab3</string>
-    <string name="tab4">tab4</string>
-    <string name="tab5">tab5</string>
+    <string name="tab1">干货</string>
+    <string name="tab2">福利</string>
+    <string name="tab3">其他</string>
 
     <string name="click_one_more_time_to_exit">再次点击返回键退出程序</string>
     <string name="network_err">请求出错</string>
     <string name="no_data">没有数据!</string>
     <string name="load_all_completed">没有了哦!</string>
+
+    <string name="transition_welfare_item_img">transition_welfare_item_img</string>
+    <string name="download_fail">下载失败</string>
+    <string name="download_succeed">下载成功</string>
 
 
 

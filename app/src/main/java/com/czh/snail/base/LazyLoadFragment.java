@@ -30,6 +30,7 @@ public abstract class LazyLoadFragment<T extends ViewDataBinding, P extends Base
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        L.i(getClass().getSimpleName()," onCreateView");
         if (registerEventBus()) {
             EventBus.getDefault().register(this);
         }

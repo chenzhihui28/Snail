@@ -90,9 +90,7 @@ public class StorageHelper {
 
 
     public static String getImageCachePath() {
-        return new StringBuilder().append(getCacheDirectory(MyApplication.getContext()))
-                .append(IMAGE_CACHE_FLOAD_NAME).append(File.separator)
-                .toString();
+        return "/mnt/sdcard/snailImg/";
     }
 
     public static String getVoiceCachePath() {

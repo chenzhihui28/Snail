@@ -16,21 +16,10 @@ public class WelfareListAdapter extends BaseQuickAdapter<GankBeauty> {
         super(R.layout.item_welfare_list, list);
     }
 
-
     @Override
-    protected void convert(BaseViewHolder helper, GankBeauty item) {
-//        helper.setText(R.id.tweetName, item.getUserName())
-//                .setText(R.id.tweetText, item.getText())
-//                .setText(R.id.tweetDate, item.getCreatedAt())
-//                .setVisible(R.id.tweetRT, item.isRetweet())
-//                .addOnClickListener(R.id.tweetAvatar)
-//                .addOnClickListener(R.id.tweetName)
-//                .linkify(R.id.tweetText);
-        Glide.with(mContext).load(item.url).crossFade().placeholder(R.mipmap.ic_launcher)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE).error(R.mipmap.ic_launcher)
+    protected void convert(final BaseViewHolder helper, final GankBeauty item) {
+        Glide.with(mContext).load(item.url).crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into((ImageView) helper.getView(R.id.imgWelfareItem));
-
     }
-
-
 }
