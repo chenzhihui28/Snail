@@ -23,7 +23,7 @@ import rx.schedulers.Schedulers;
  * Created by chenzhihui on 16/8/5.
  * 启动页Presenter
  * 先检查权限是否都授予了, 假如权限没有全部授予则重新请求相关权限, 不授予则退出程序
- * 然后开始请求今日的启动图,默认显示本地的一张,请求成功则显示新的那一张,总时间为5秒
+ * 然后开始请求今日的启动图,默认显示本地的一张,请求成功则显示新的那一张,总时间为@{SPLASH_TIME}秒
  */
 public class SplashPresenter implements BasePresenter, SplashContract.Presenter{
     private SplashContract.View mView;
@@ -73,7 +73,6 @@ public class SplashPresenter implements BasePresenter, SplashContract.Presenter{
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-//                mView.toMainActivityThenFinish();
             }
 
             @Override
@@ -94,8 +93,10 @@ public class SplashPresenter implements BasePresenter, SplashContract.Presenter{
                     //TODO 首次运行要跳转引导页
 //                    startActivity(GuideActivity.newIntent(SplashActivity.this));
                     mView.toMainActivityThenFinish();
+                    stop();
                 } else {
                     mView.toMainActivityThenFinish();
+                    stop();
                 }
             }
         });

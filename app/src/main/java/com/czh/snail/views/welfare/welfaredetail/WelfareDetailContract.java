@@ -9,7 +9,7 @@ import com.czh.snail.base.BasePresenter;
 public interface WelfareDetailContract {
     interface View {
         void showImg(String url);
-        void showSnack(int message);
+        void showSnack(String message);
 
     }
 

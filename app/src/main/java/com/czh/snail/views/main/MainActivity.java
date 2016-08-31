@@ -93,9 +93,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
 
     private void initViewPager() {
         fragments.clear();
-        fragments.add(DemoFragment.newInstance(1));
-        fragments.add(WelfareFragment.newInstance());
         fragments.add(KnowledgeFragment.newInstance());
+        fragments.add(WelfareFragment.newInstance());
+        fragments.add(DemoFragment.newInstance(1));
         mBinding.viewPager.setOffscreenPageLimit(4);
         adapter = new MainPagerAdapter(getSupportFragmentManager(),fragments);
         mBinding.viewPager.setAdapter(adapter);
@@ -122,8 +122,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
 
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         mBinding.toolbar.setTitle(TABS[0]);
+        setSupportActionBar(toolbar);
+
     }
 
     @Override

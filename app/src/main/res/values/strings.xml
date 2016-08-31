@@ -48,6 +48,8 @@
     <string name="transition_welfare_item_img">transition_welfare_item_img</string>
     <string name="download_fail">下载失败</string>
     <string name="download_succeed">下载成功</string>
+    <string name="img_already_succeed">图片已存在</string>
+    <string name="detail">详情</string>
 
 
 

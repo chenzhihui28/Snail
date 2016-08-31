@@ -18,8 +18,10 @@ public class WelfareListAdapter extends BaseQuickAdapter<GankBeauty> {
 
     @Override
     protected void convert(final BaseViewHolder helper, final GankBeauty item) {
-        Glide.with(mContext).load(item.url).crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+        Glide.with(mContext).load(item.url)
+                .crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into((ImageView) helper.getView(R.id.imgWelfareItem));
     }
+
+
 }

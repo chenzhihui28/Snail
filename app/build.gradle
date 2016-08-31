@@ -78,4 +78,5 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v2.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
 
+
 }

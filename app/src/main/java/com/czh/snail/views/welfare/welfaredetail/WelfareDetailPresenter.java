@@ -21,7 +21,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static android.R.attr.name;
 import static com.czh.snail.views.welfare.welfaredetail.WelFareDetailActivity.INTENT_ENTITY;
 
 /**
@@ -33,6 +32,7 @@ public class WelfareDetailPresenter implements BasePresenter, WelfareDetailContr
     private static final String TAG = WelfareDetailPresenter.class.getSimpleName();
     private Subscription downloadSubscription;
     private String url;
+    private GankBeauty beauty;
 
 
     public WelfareDetailPresenter(WelfareDetailContract.View view) {
@@ -41,29 +41,34 @@ public class WelfareDetailPresenter implements BasePresenter, WelfareDetailContr
 
     @Override
     public void start() {
-        GankBeauty beauty = ((Activity) mView).getIntent().getParcelableExtra(INTENT_ENTITY);
+        beauty = ((Activity) mView).getIntent().getParcelableExtra(INTENT_ENTITY);
         url = beauty.url;
         if (!TextUtils.isEmpty(url)) {
             mView.showImg(url);
         }
     }
 
-    private Observable<Boolean> getDownloadObservable(final String url) {
+    private Observable<Boolean> getDownloadObservable(final String url, final String id) {
         return Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                File file = null;
-                try {
-                    file = Glide.with(MyApplication.getContext()).load(url)
-                            .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                            .get();
-                    if (file != null) {
-                        FileUtils.copyFile(file.getAbsolutePath(),StorageHelper.getImageCachePath(), name +".jpg");
-                        subscriber.onCompleted();
+                File temp = new File(StorageHelper.getImageCachePath() + id + ".jpg");
+                if (temp.exists()) {
+                    subscriber.onError(new Throwable(MyApplication.getContext().getString(R.string.img_already_succeed)));
+                } else {
+                    File file = null;
+                    try {
+                        file = Glide.with(MyApplication.getContext()).load(url)
+                                .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                                .get();
+                        if (file != null) {
+                            FileUtils.copyFile(file.getAbsolutePath(), StorageHelper.getImageCachePath(), id + ".jpg");
+                            subscriber.onCompleted();
+                        }
+                    } catch (Exception e) {
+                        subscriber.onError(new Throwable(MyApplication.getContext().getString(R.string.download_fail)));
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    subscriber.onError(e.getCause());
-                    e.printStackTrace();
                 }
             }
 
@@ -73,18 +78,18 @@ public class WelfareDetailPresenter implements BasePresenter, WelfareDetailContr
     @Override
     public void download() {
         if (!TextUtils.isEmpty(url)) {
-            downloadSubscription = getDownloadObservable(url).subscribeOn(Schedulers.newThread())
+            downloadSubscription = getDownloadObservable(url, beauty._id).subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber() {
                         @Override
                         public void onError(Throwable e) {
                             super.onError(e);
-                            mView.showSnack(R.string.download_fail);
+                            mView.showSnack(e.getMessage());
                         }
 
                         @Override
                         public void onCompleted() {
                             super.onCompleted();
-                            mView.showSnack(R.string.download_succeed);
+                            mView.showSnack(MyApplication.getContext().getString(R.string.download_succeed));
                         }
                     });
 
