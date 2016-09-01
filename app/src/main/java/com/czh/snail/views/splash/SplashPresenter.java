@@ -6,6 +6,7 @@ import com.czh.snail.base.BasePresenter;
 import com.czh.snail.base.BaseSubscriber;
 import com.czh.snail.model.Repository;
 import com.czh.snail.model.beans.GankBeautyResult;
+import com.czh.snail.model.beans.GankResult;
 import com.czh.snail.utils.Constants;
 import com.czh.snail.utils.MyApplication;
 import com.czh.snail.utils.PermissionsChecker;
@@ -65,7 +66,7 @@ public class SplashPresenter implements BasePresenter, SplashContract.Presenter{
     private void getTodayImage(){
         Observable getImageObservable = Repository.getInstance().getSplashPic();
         getImageSubscription = getImageObservable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<GankBeautyResult>() {
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<GankResult>() {
             @Override
             public void onCompleted() {
             }
@@ -76,9 +77,9 @@ public class SplashPresenter implements BasePresenter, SplashContract.Presenter{
             }
 
             @Override
-            public void onNext(GankBeautyResult gankBeautyResult) {
-                if (gankBeautyResult != null && gankBeautyResult.beauties != null && gankBeautyResult.beauties.size() >= 1) {
-                    mView.showNewSplashImage(gankBeautyResult);
+            public void onNext(GankResult gankResult) {
+                if (gankResult != null && gankResult.results.beautyList != null && gankResult.results.beautyList.size() >= 1) {
+                    mView.showNewSplashImage(gankResult);
                 }
             }
         });

@@ -1,7 +1,7 @@
 package com.czh.snail.views.knowledge;
 
 import com.czh.snail.base.BasePresenter;
-import com.czh.snail.model.beans.Knowledge;
+import com.czh.snail.model.beans.Gank;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface KnowledgeContract {
     interface View {
         void startRefresh();
         void stopRefreshingOrLoading(boolean isFirstPage);
-        void refreshOrLoadMoreSucceed(List<Knowledge> gankBeautyList, boolean isFirstPage);
+        void refreshOrLoadMoreSucceed(List<Gank> gankList, boolean isFirstPage);
         void refreshOrLoadMoreError(String err, boolean isFirstPage);
     }
 

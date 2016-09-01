@@ -18,10 +18,9 @@ import com.czh.snail.adapters.KnowledgeListAdapter;
 import com.czh.snail.base.LazyLoadFragment;
 import com.czh.snail.databinding.FragmentKnowledgeBinding;
 import com.czh.snail.model.beans.GankBeauty;
-import com.czh.snail.model.beans.Knowledge;
+import com.czh.snail.model.beans.Gank;
 import com.czh.snail.utils.TransitionHelper;
 import com.czh.snail.views.welfare.welfaredetail.WelFareDetailActivity;
-import com.czh.snail.views.welfare.welfarelist.WelfareContract;
 import com.czh.snail.views.welfare.welfarelist.WelfarePresenter;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class KnowledgeFragment extends LazyLoadFragment<FragmentKnowledgeBinding
 
     @Override
     protected void initView() {
-        mKnowledgeListAdapter = new KnowledgeListAdapter(new ArrayList<Knowledge>());
+        mKnowledgeListAdapter = new KnowledgeListAdapter(new ArrayList<Gank>());
         mKnowledgeListAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mBinding.recyclerView.setAdapter(mKnowledgeListAdapter);
         mBinding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));
@@ -104,7 +103,7 @@ public class KnowledgeFragment extends LazyLoadFragment<FragmentKnowledgeBinding
 
 
     @Override
-    public void refreshOrLoadMoreSucceed(List<Knowledge> gankBeautyList, boolean isFirstPage) {
+    public void refreshOrLoadMoreSucceed(List<Gank> gankBeautyList, boolean isFirstPage) {
         if (gankBeautyList.size() > 0) {
             if (isFirstPage) {
                 mKnowledgeListAdapter.getData().clear();

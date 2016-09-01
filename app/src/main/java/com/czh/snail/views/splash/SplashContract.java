@@ -1,7 +1,7 @@
 package com.czh.snail.views.splash;
 
 import com.czh.snail.base.BasePresenter;
-import com.czh.snail.model.beans.GankBeautyResult;
+import com.czh.snail.model.beans.GankResult;
 
 /**
  * Created by chenzhihui on 2016/8/8.
@@ -9,7 +9,7 @@ import com.czh.snail.model.beans.GankBeautyResult;
  */
 public interface SplashContract {
     interface View {
-        void showNewSplashImage(GankBeautyResult gankBeautyResult);
+        void showNewSplashImage(GankResult gankResult);
         void showRemainingTime(int seconds);
         void toPermissionActivityForResult(int requestCode,String[] permissions);
         void toMainActivityThenFinish();

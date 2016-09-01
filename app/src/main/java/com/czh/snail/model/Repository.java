@@ -1,7 +1,6 @@
 package com.czh.snail.model;
 
-import com.czh.snail.model.beans.GankBeautyResult;
-import com.czh.snail.model.beans.KnowledgeResult;
+import com.czh.snail.model.beans.GankResult;
 import com.czh.snail.model.network.Network;
 import com.czh.snail.model.network.PictureDataSource;
 
@@ -24,15 +23,15 @@ public class Repository implements PictureDataSource {
         return RepositoryHelper.INSTANCE;
     }
 
-    public Observable<GankBeautyResult> getSplashPic() {
+    public Observable<GankResult> getSplashPic() {
         return Network.getGankApi().getBeauties(1, 1);
     }
 
-    public Observable<GankBeautyResult> getWelfareList(int pageSize, int index) {
+    public Observable<GankResult> getWelfareList(int pageSize, int index) {
         return Network.getGankApi().getBeauties(pageSize, index);
     }
 
-    public Observable<KnowledgeResult> getKnowledgeList(int year, int month, int day) {
+    public Observable<GankResult> getKnowledgeList(int year, int month, int day) {
         return Network.getGankApi().getKnowledge(year, month, day);
     }
 

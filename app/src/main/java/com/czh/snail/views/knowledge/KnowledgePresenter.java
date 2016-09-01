@@ -4,7 +4,7 @@ import com.czh.snail.R;
 import com.czh.snail.base.BasePresenter;
 import com.czh.snail.base.BaseSubscriber;
 import com.czh.snail.model.Repository;
-import com.czh.snail.model.beans.KnowledgeResult;
+import com.czh.snail.model.beans.GankResult;
 import com.czh.snail.utils.L;
 import com.czh.snail.utils.MyApplication;
 
@@ -30,7 +30,7 @@ public class KnowledgePresenter implements BasePresenter, KnowledgeContract.Pres
 
     @Override
     public void start() {
-        getWelfareList(true);
+//        getWelfareList(true);
     }
 
 
@@ -43,9 +43,9 @@ public class KnowledgePresenter implements BasePresenter, KnowledgeContract.Pres
         } else {
             pageIndex += 1;
         }
-        Observable getImageListObservable = Repository.getInstance().getWelfareList(PAGE_SIZE, pageIndex);
+        Observable getImageListObservable = Repository.getInstance().getKnowledgeList(2016,8,11);
         getImageListSubscription = getImageListObservable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<KnowledgeResult>() {
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<GankResult>() {
                     @Override
                     public void onCompleted() {
                         super.onCompleted();
@@ -63,13 +63,13 @@ public class KnowledgePresenter implements BasePresenter, KnowledgeContract.Pres
                     }
 
                     @Override
-                    public void onNext(KnowledgeResult gankBeautyResult) {
+                    public void onNext(GankResult gankBeautyResult) {
                         L.e(TAG, "onNext" + gankBeautyResult);
                         if (isFirstPage) {
                             mView.stopRefreshingOrLoading(true);
                         }
-                        if (gankBeautyResult != null && gankBeautyResult.knowledges != null) {
-                            mView.refreshOrLoadMoreSucceed(gankBeautyResult.knowledges, isFirstPage);
+                        if (gankBeautyResult != null && gankBeautyResult.results.androidList != null) {
+                            mView.refreshOrLoadMoreSucceed(gankBeautyResult.results.androidList, isFirstPage);
                         } else {
                             mView.refreshOrLoadMoreError(MyApplication.getContext().getString(R.string.network_err), isFirstPage);
                         }

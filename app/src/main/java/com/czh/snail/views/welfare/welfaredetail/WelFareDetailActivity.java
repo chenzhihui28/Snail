@@ -33,8 +33,8 @@ public class WelFareDetailActivity extends BaseActivity<ActivityWelfareDetailBin
     @Override
     protected void initView(Bundle savedInstanceState) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.detail);
+        setSupportActionBar(toolbar);
         getWindow().getEnterTransition().setDuration(500);
         mBinding.imgDetail.setOnClickListener(new View.OnClickListener() {
             @Override

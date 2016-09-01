@@ -3,7 +3,7 @@ package com.czh.snail.model.beans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Knowledge implements Parcelable{
+public class Gank implements Parcelable{
     public String _id;
     public String createdAt;
     public String desc;
@@ -14,7 +14,7 @@ public class Knowledge implements Parcelable{
     public String who;
     public String url;
 
-    protected Knowledge(Parcel in) {
+    protected Gank(Parcel in) {
         _id = in.readString();
         createdAt = in.readString();
         desc = in.readString();
@@ -26,15 +26,15 @@ public class Knowledge implements Parcelable{
         url = in.readString();
     }
 
-    public static final Creator<Knowledge> CREATOR = new Creator<Knowledge>() {
+    public static final Creator<Gank> CREATOR = new Creator<Gank>() {
         @Override
-        public Knowledge createFromParcel(Parcel in) {
-            return new Knowledge(in);
+        public Gank createFromParcel(Parcel in) {
+            return new Gank(in);
         }
 
         @Override
-        public Knowledge[] newArray(int size) {
-            return new Knowledge[size];
+        public Gank[] newArray(int size) {
+            return new Gank[size];
         }
     };
 
