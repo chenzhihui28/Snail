@@ -3,6 +3,7 @@
 package com.czh.snail.model.network.apis;
 
 
+import com.czh.snail.model.beans.GankBeautyResult;
 import com.czh.snail.model.beans.GankResult;
 
 import retrofit2.http.GET;
@@ -14,7 +15,7 @@ public interface GankApi {
 //    Observable<GankBeautyResult> getBeauties(@Path("number") int number, @Path("page") int page);
 
     @GET("data/福利/{number}/{page}")
-    Observable<GankResult> getBeauties(@Path("number") int number, @Path("page") int page);
+    Observable<GankBeautyResult> getBeauties(@Path("number") int number, @Path("page") int page);
 
     @GET("day/{year}/{month}/{day}")
     Observable<GankResult> getKnowledge(@Path("year") int year, @Path("month") int month, @Path("day") int day);

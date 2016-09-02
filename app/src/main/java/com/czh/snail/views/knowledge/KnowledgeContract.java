@@ -1,9 +1,7 @@
 package com.czh.snail.views.knowledge;
 
 import com.czh.snail.base.BasePresenter;
-import com.czh.snail.model.beans.Gank;
-
-import java.util.List;
+import com.czh.snail.model.beans.GankResult;
 
 /**
  * Created by chenzhihui on 2016/8/8.
@@ -12,12 +10,12 @@ import java.util.List;
 public interface KnowledgeContract {
     interface View {
         void startRefresh();
-        void stopRefreshingOrLoading(boolean isFirstPage);
-        void refreshOrLoadMoreSucceed(List<Gank> gankList, boolean isFirstPage);
-        void refreshOrLoadMoreError(String err, boolean isFirstPage);
+        void stopRefreshing();
+        void refreshSucceed(GankResult result);
+        void refreshError(String err);
     }
 
     interface Presenter extends BasePresenter {
-        void getWelfareList(boolean firstPage);
+        void getTodayKnowledge(int year, int month, int day);
     }
 }

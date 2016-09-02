@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide;
 import com.czh.snail.R;
 import com.czh.snail.base.BaseActivity;
 import com.czh.snail.databinding.ActivitySplashBinding;
-import com.czh.snail.model.beans.GankResult;
+import com.czh.snail.model.beans.GankBeautyResult;
 import com.czh.snail.views.PermissionsActivity;
 import com.czh.snail.views.main.MainActivity;
 
@@ -54,8 +54,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,SplashPre
 
     //请求得到了广告图的URL, 使用Glide展示
     @Override
-    public void showNewSplashImage(GankResult gankResult) {
-        Glide.with(SplashActivity.this).load(gankResult.results.beautyList.get(0).url)
+    public void showNewSplashImage(GankBeautyResult gankResult) {
+        Glide.with(SplashActivity.this).load(gankResult.beauties.get(0).url)
                 .error(R.drawable.splashscreen)
                 .placeholder(R.drawable.splashscreen)
                 .crossFade()

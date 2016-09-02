@@ -20,8 +20,6 @@ import rx.schedulers.Schedulers;
 public class KnowledgePresenter implements BasePresenter, KnowledgeContract.Presenter {
     private KnowledgeContract.View mView;
     private Subscription getImageListSubscription;
-    public final static int PAGE_SIZE = 10;
-    private static int pageIndex = 1;
     private static final String TAG = KnowledgePresenter.class.getSimpleName();
 
     public KnowledgePresenter(KnowledgeContract.View view) {
@@ -30,20 +28,15 @@ public class KnowledgePresenter implements BasePresenter, KnowledgeContract.Pres
 
     @Override
     public void start() {
-//        getWelfareList(true);
+        getTodayKnowledge(2016,8,11);
     }
 
 
     //获取图片列表
     @Override
-    public void getWelfareList(final boolean isFirstPage) {
-        if (isFirstPage) {
-            pageIndex = 1;
-            mView.startRefresh();
-        } else {
-            pageIndex += 1;
-        }
-        Observable getImageListObservable = Repository.getInstance().getKnowledgeList(2016,8,11);
+    public void getTodayKnowledge(final int year, final int month, final int day) {
+        mView.startRefresh();
+        Observable getImageListObservable = Repository.getInstance().getKnowledgeList(year,month,day);
         getImageListSubscription = getImageListObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseSubscriber<GankResult>() {
                     @Override
@@ -58,20 +51,18 @@ public class KnowledgePresenter implements BasePresenter, KnowledgeContract.Pres
                         if (e != null) {
                             errString = e.getMessage();
                         }
-                        mView.stopRefreshingOrLoading(isFirstPage);
-                        mView.refreshOrLoadMoreError(errString, isFirstPage);
+                        mView.stopRefreshing();
+                        mView.refreshError(errString);
                     }
 
                     @Override
                     public void onNext(GankResult gankBeautyResult) {
                         L.e(TAG, "onNext" + gankBeautyResult);
-                        if (isFirstPage) {
-                            mView.stopRefreshingOrLoading(true);
-                        }
-                        if (gankBeautyResult != null && gankBeautyResult.results.androidList != null) {
-                            mView.refreshOrLoadMoreSucceed(gankBeautyResult.results.androidList, isFirstPage);
+                        mView.stopRefreshing();
+                        if (gankBeautyResult != null) {
+                            mView.refreshSucceed(gankBeautyResult);
                         } else {
-                            mView.refreshOrLoadMoreError(MyApplication.getContext().getString(R.string.network_err), isFirstPage);
+                            mView.refreshError(MyApplication.getContext().getString(R.string.network_err));
                         }
                     }
                 });

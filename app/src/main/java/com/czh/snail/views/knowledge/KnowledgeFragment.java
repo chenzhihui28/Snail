@@ -17,11 +17,10 @@ import com.czh.snail.R;
 import com.czh.snail.adapters.KnowledgeListAdapter;
 import com.czh.snail.base.LazyLoadFragment;
 import com.czh.snail.databinding.FragmentKnowledgeBinding;
-import com.czh.snail.model.beans.GankBeauty;
 import com.czh.snail.model.beans.Gank;
+import com.czh.snail.model.beans.GankBeauty;
 import com.czh.snail.utils.TransitionHelper;
 import com.czh.snail.views.welfare.welfaredetail.WelFareDetailActivity;
-import com.czh.snail.views.welfare.welfarelist.WelfarePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,7 @@ public class KnowledgeFragment extends LazyLoadFragment<FragmentKnowledgeBinding
         mBinding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.getWelfareList(true);
+                mPresenter.getTodayKnowledge(2016, 8, 11);
             }
         });
         mBinding.recyclerView.addOnItemTouchListener(new OnItemClickListener() {
@@ -93,55 +92,33 @@ public class KnowledgeFragment extends LazyLoadFragment<FragmentKnowledgeBinding
     }
 
     @Override
-    public void stopRefreshingOrLoading(boolean isFirstPage) {
-        if (isFirstPage) {
-            mBinding.swipeRefreshLayout.setRefreshing(false);
-        } else {
-            mKnowledgeListAdapter.loadComplete();
-        }
+    public void stopRefreshing() {
+        mBinding.swipeRefreshLayout.setRefreshing(false);
     }
 
 
     @Override
-    public void refreshOrLoadMoreSucceed(List<Gank> gankBeautyList, boolean isFirstPage) {
+    public void refreshSucceed(List<Gank> gankBeautyList) {
         if (gankBeautyList.size() > 0) {
-            if (isFirstPage) {
-                mKnowledgeListAdapter.getData().clear();
-            }
+            mKnowledgeListAdapter.getData().clear();
             mKnowledgeListAdapter.addData(gankBeautyList);
-            if (gankBeautyList.size() < WelfarePresenter.PAGE_SIZE) {
-                mKnowledgeListAdapter.loadComplete();
-                if (loadAllCompleteView == null) {
-                    loadAllCompleteView = mParentActivity.getLayoutInflater()
-                            .inflate(R.layout.footer_no_more_data
-                                    , (ViewGroup) mBinding.recyclerView.getParent(), false);
-                }
-                mKnowledgeListAdapter.addFooterView(loadAllCompleteView);
-            } else {
-                mKnowledgeListAdapter.openLoadMore(WelfarePresenter.PAGE_SIZE);
+            mKnowledgeListAdapter.loadComplete();
+            if (loadAllCompleteView == null) {
+                loadAllCompleteView = mParentActivity.getLayoutInflater()
+                        .inflate(R.layout.footer_no_more_data
+                                , (ViewGroup) mBinding.recyclerView.getParent(), false);
             }
+            mKnowledgeListAdapter.addFooterView(loadAllCompleteView);
+
             mKnowledgeListAdapter.notifyDataSetChanged();
-            mKnowledgeListAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-                @Override
-                public void onLoadMoreRequested() {
-                    mPresenter.getWelfareList(false);
-                }
-            });
+
         } else {
-            if (isFirstPage) {
-                if (mEmptyView == null) {
-                    mEmptyView = mParentActivity.getLayoutInflater().inflate(R.layout.empty_view
-                            , (ViewGroup) mBinding.recyclerView.getParent(), false);
-                }
-                mKnowledgeListAdapter.setEmptyView(mEmptyView);
-            } else {
-                mKnowledgeListAdapter.loadComplete();
-                if (mNoMoreView == null) {
-                    mNoMoreView = mParentActivity.getLayoutInflater().inflate(R.layout.footer_no_more_data
-                            , (ViewGroup) mBinding.recyclerView.getParent(), false);
-                }
-                mKnowledgeListAdapter.addFooterView(mNoMoreView);
+            if (mEmptyView == null) {
+                mEmptyView = mParentActivity.getLayoutInflater().inflate(R.layout.empty_view
+                        , (ViewGroup) mBinding.recyclerView.getParent(), false);
             }
+            mKnowledgeListAdapter.setEmptyView(mEmptyView);
+
             mKnowledgeListAdapter.notifyDataSetChanged();
         }
 
@@ -150,12 +127,8 @@ public class KnowledgeFragment extends LazyLoadFragment<FragmentKnowledgeBinding
 
 
     @Override
-    public void refreshOrLoadMoreError(String err, boolean isFirstPage) {
-        if (isFirstPage) {
-            mKnowledgeListAdapter.removeAllFooterView();
-        } else {
-            mKnowledgeListAdapter.showLoadMoreFailedView();
-        }
+    public void refreshError(String err) {
+        mKnowledgeListAdapter.removeAllFooterView();
         if (TextUtils.isEmpty(err)) {
             err = getString(R.string.network_err);
         }
