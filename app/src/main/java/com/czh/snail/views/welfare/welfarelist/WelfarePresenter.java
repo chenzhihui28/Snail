@@ -68,7 +68,8 @@ public class WelfarePresenter implements BasePresenter, WelfareContract.Presente
                         if (isFirstPage) {
                             mView.stopRefreshingOrLoading(true);
                         }
-                        if (gankBeautyResult != null && gankBeautyResult.beauties != null) {
+                        if (gankBeautyResult != null && !gankBeautyResult.error
+                                && gankBeautyResult.beauties != null) {
                             mView.refreshOrLoadMoreSucceed(gankBeautyResult.beauties, isFirstPage);
                         } else {
                             mView.refreshOrLoadMoreError(MyApplication.getContext().getString(R.string.network_err), isFirstPage);

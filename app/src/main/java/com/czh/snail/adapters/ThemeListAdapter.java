@@ -32,7 +32,8 @@ public class ThemeListAdapter extends BaseRecyclerAdapter<MaterialTheme> {
         TextView mTextView =  helper.getView(R.id.tvThemeText);
         RelativeLayout mRelativeLayout = helper.getView(R.id.rlRoot);
         StringBuilder stringBuilder = new StringBuilder();
-        if (MaterialTheme.getThemeList().get(position).getThemeResId() == SingData.getInstance().getCurrentTheme().getThemeResId()) {
+        if (MaterialTheme.getThemeList().get(position).getThemeResId() == SingData.getInstance().getCurrentTheme()
+                .getThemeResId()) {
             stringBuilder.append("Current:");
         }
         stringBuilder.append(mContext.getString(MaterialTheme.getThemeList().get(position).getNameResId()));

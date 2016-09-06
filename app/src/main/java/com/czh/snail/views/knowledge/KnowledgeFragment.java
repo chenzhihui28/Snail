@@ -9,7 +9,6 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -19,11 +18,11 @@ import com.czh.snail.base.LazyLoadFragment;
 import com.czh.snail.databinding.FragmentKnowledgeBinding;
 import com.czh.snail.model.beans.Gank;
 import com.czh.snail.model.beans.GankBeauty;
+import com.czh.snail.model.beans.GankResult;
 import com.czh.snail.utils.TransitionHelper;
 import com.czh.snail.views.welfare.welfaredetail.WelFareDetailActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by chenzhihui on 16/8/23.
@@ -31,7 +30,7 @@ import java.util.List;
 
 public class KnowledgeFragment extends LazyLoadFragment<FragmentKnowledgeBinding, KnowledgePresenter> implements KnowledgeContract.View {
     private KnowledgeListAdapter mKnowledgeListAdapter;
-    private View loadAllCompleteView, mEmptyView, mNoMoreView;
+    private View loadAllCompleteView, mEmptyView;
 
     public static KnowledgeFragment newInstance() {
         return new KnowledgeFragment();
@@ -98,29 +97,29 @@ public class KnowledgeFragment extends LazyLoadFragment<FragmentKnowledgeBinding
 
 
     @Override
-    public void refreshSucceed(List<Gank> gankBeautyList) {
-        if (gankBeautyList.size() > 0) {
-            mKnowledgeListAdapter.getData().clear();
-            mKnowledgeListAdapter.addData(gankBeautyList);
-            mKnowledgeListAdapter.loadComplete();
-            if (loadAllCompleteView == null) {
-                loadAllCompleteView = mParentActivity.getLayoutInflater()
-                        .inflate(R.layout.footer_no_more_data
-                                , (ViewGroup) mBinding.recyclerView.getParent(), false);
-            }
-            mKnowledgeListAdapter.addFooterView(loadAllCompleteView);
-
-            mKnowledgeListAdapter.notifyDataSetChanged();
-
-        } else {
-            if (mEmptyView == null) {
-                mEmptyView = mParentActivity.getLayoutInflater().inflate(R.layout.empty_view
-                        , (ViewGroup) mBinding.recyclerView.getParent(), false);
-            }
-            mKnowledgeListAdapter.setEmptyView(mEmptyView);
-
-            mKnowledgeListAdapter.notifyDataSetChanged();
-        }
+    public void refreshSucceed(GankResult gankBeautyList) {
+//        if (gankBeautyList != null) {
+//            mKnowledgeListAdapter.getData().clear();
+//            mKnowledgeListAdapter.addData(gankBeautyList);
+//            mKnowledgeListAdapter.loadComplete();
+//            if (loadAllCompleteView == null) {
+//                loadAllCompleteView = mParentActivity.getLayoutInflater()
+//                        .inflate(R.layout.footer_no_more_data
+//                                , (ViewGroup) mBinding.recyclerView.getParent(), false);
+//            }
+//            mKnowledgeListAdapter.addFooterView(loadAllCompleteView);
+//
+//            mKnowledgeListAdapter.notifyDataSetChanged();
+//
+//        } else {
+//            if (mEmptyView == null) {
+//                mEmptyView = mParentActivity.getLayoutInflater().inflate(R.layout.empty_view
+//                        , (ViewGroup) mBinding.recyclerView.getParent(), false);
+//            }
+//            mKnowledgeListAdapter.setEmptyView(mEmptyView);
+//
+//            mKnowledgeListAdapter.notifyDataSetChanged();
+//        }
 
 
     }

@@ -118,6 +118,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
                 return true;
             }
         });
+
     }
 
     private void initToolbar() {

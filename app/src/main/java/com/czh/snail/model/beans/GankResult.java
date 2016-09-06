@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GankResult {
 
-    private boolean error;
+    public boolean error;
     public Result results;
     public List<String> category;
 

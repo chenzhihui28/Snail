@@ -77,7 +77,8 @@ public class SplashPresenter implements BasePresenter, SplashContract.Presenter{
 
             @Override
             public void onNext(GankBeautyResult gankResult) {
-                if (gankResult != null && gankResult.beauties != null && gankResult.beauties.size() >= 1) {
+                if (gankResult != null && !gankResult.error && gankResult.beauties != null
+                        && gankResult.beauties.size() >= 1) {
                     mView.showNewSplashImage(gankResult);
                 }
             }

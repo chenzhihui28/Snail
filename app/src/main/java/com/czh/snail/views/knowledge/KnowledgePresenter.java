@@ -56,11 +56,11 @@ public class KnowledgePresenter implements BasePresenter, KnowledgeContract.Pres
                     }
 
                     @Override
-                    public void onNext(GankResult gankBeautyResult) {
-                        L.e(TAG, "onNext" + gankBeautyResult);
+                    public void onNext(GankResult gankResult) {
+                        L.e(TAG, "onNext" + gankResult);
                         mView.stopRefreshing();
-                        if (gankBeautyResult != null) {
-                            mView.refreshSucceed(gankBeautyResult);
+                        if (gankResult != null && !gankResult.error) {
+                            mView.refreshSucceed(gankResult);
                         } else {
                             mView.refreshError(MyApplication.getContext().getString(R.string.network_err));
                         }
