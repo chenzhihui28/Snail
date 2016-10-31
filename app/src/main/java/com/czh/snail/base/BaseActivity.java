@@ -32,6 +32,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, E extends BasePres
                 SingData.getInstance().setCurrentTheme(mTheme);
             }
         }
+//        sdfsdfsdf
         if (!setOtherTheme()) {
             setTheme(SingData.getInstance().getCurrentTheme().getThemeResId());
         }
